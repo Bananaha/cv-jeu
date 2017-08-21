@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Hello you</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="./vendors/font-awesome/font-awesome.min.css">
+    <link rel="stylesheet" href="./styles/reset.css">
+    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/modal.css">
+    <link rel="stylesheet" href="./styles/rub-win.css">
+  </head>
+  <body>
+    <header>
+      <h1>Hello you</h1>
+    </header>
+    <main>
+      <div id="canvas-container">
+        <canvas id="canvas"></canvas>
+        <div id=modal-container class="hide">
+          <div id="modal">
+            <div id="text-container">
+              <p id="score"></p>
+              <p id="message"></p>
+            </div>
+            <div id="button-container">
+              <button id="restart" type="button"><i class="fa fa-refresh fa-2x" aria-hidden="true" title="Recommencer"></i></button>
+              <button id="show-cv" type="button"><i class="fa fa-file-text-o fa-2x" aria-hidden="true" title="Aller au CV"></i></button>
+              <button id="contact" type="button"><i class="fa fa-pencil fa-2x" aria-hidden="true" title="Me contacter"></i></button>
+              <button id="parts-unlocked" type="button"><i class="fa fa-trophy fa-2x" aria-hidden="true" title="Voir les records"></i></button>
+            </div>
+          </div>
+        </div>
+        <div id="rub-win"  class="hide">
+          <button id="rub-win-arrow-left" type="button" class="fa fa-arrow-left fa-2x"></button>
+          <div id="rub-win-content"></div>
+          <button id="rub-win-arrow-right" type="button" class="fa fa-arrow-right fa-2x"></button>
+        </div>
+      </div>
+    </main>
+    <script type="text/javascript" src="./scripts/ammo.js"></script>
+    <script type="text/javascript" src="./scripts/player.js"></script>
+    <script type="text/javascript" src="./scripts/ennemy.js"></script>
+    <script type="text/javascript" src="./scripts/boss.js"></script>
+    <script type="text/javascript" src="./scripts/game.js"></script>
+    <script type="text/javascript" src="./scripts/script.js"></script>
+  </body>
+</html>
