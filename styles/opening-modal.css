@@ -1,0 +1,12 @@
+#opening-modal {
+  position: absolute;
+  margin-top: 20px;
+  top: 0;
+  justify-content: space-around;
+  align-items: center;
+  overflow: hidden
+}
+
+#opening-modal button {
+  width: 200px;
+}

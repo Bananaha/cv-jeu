@@ -1,4 +1,6 @@
-#modal-container {
+#FF0013, #FF9713, #FFE213, #2DCE13, #47C6FF, #5900AB;
+
+#end-message-modal-container {
   position: absolute;
   background-color: rgba(255, 255, 255, 0.58);
   margin-top: 20px;
@@ -7,7 +9,7 @@
   align-items: center;
 }
 
-#modal {
+#end-message-modal {
   background-color: #f9dc19;
   width: 400px;
   height: 200px;
@@ -30,11 +32,11 @@
 
 button {
   height: 40px;
-  background-color: rgba(255, 255, 255, 0);
+  background: #5900AB;
   border: none;
   vertical-align: middle;
   color: #F2F2F2;
-  transition: all .5s ease-in-out;
+  transition: all 2s ease;
 }
 
 button:hover, button:active, button:focus  {
@@ -42,7 +44,7 @@ button:hover, button:active, button:focus  {
 }
 
 button:hover {
-  color: #363636;
+  background: #47C6FF;
 }
 
 

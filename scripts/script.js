@@ -6,60 +6,85 @@ var colors = {
   text: '#505050'
 };
 var pressedKeys = {};
-//Event listeners sur les touches du clavier et souris
-window.addEventListener('keydown', function(event){
+
+// Boutons des modals
+var restartButton = document.getElementById('restart');
+var cvPartsUnlockedButton = document.getElementById('cv-parts-unlocked');
+var showCvButton = document.getElementById('show-cv');
+var contactButton = document.getElementById('contact');
+var openingModal = document.getElementById('opening-modal');
+var endMessageModalContainer = document.getElementById('end-message-modal-container');
+var startGameButton = document.getElementById('start-game-button');
+var skipGameButton = document.getElementById('skip-game-button');
+
+// Event listeners sur les touches du clavier et souris
+window.addEventListener('keydown', function (event) {
   event.preventDefault();
   pressedKeys[event.key] = true;
 });
-window.addEventListener('keyup', function(event){
+window.addEventListener('keyup', function (event) {
   event.preventDefault();
   pressedKeys[event.key] = false;
+});
+window.addEventListener('load', showOpeningModal);
+cvPartsUnlockedButton.addEventListener('click', function (event) {
+  event.preventDefault();
+  var cvPartsContainer = document.getElementById('rub-win');
+  cvPartsContainer.style.width = game.getSize().canvasWidth + 'px';
+  cvPartsContainer.style.height = game.getSize().canvasHeight + 'px';
+  cvPartsContainer.className = 'show';
+});
+window.addEventListener('load', function () {
+  showOpeningModal();
+});
+
+function translateY (element) {
+  element.style.transform = 'translateY(' + game.getSize().canvasHeight + 'px)';
+}
+startGameButton.addEventListener('click', function () {
+  translateY(startGameButton);
+  translateY(skipGameButton);
+  setTimeout(function () {
+    openingModal.className = 'hide';
+    game.start()
+  }, 1000);
+});
+
+skipGameButton.addEventListener('click', function () {
+  translateY(startGameButton);
+  translateY(skipGameButton);
+});
+
+// Relance une partie
+restartButton.addEventListener('click', function (event) {
+  event.preventDefault();
+  endMessageModalContainer.className = 'hide';
+  game.start();
 });
 
 var game = new Game();
 
-//Boutons de la modal
-var restartButton = document.getElementById('restart');
-var partsUnlockedButton = document.getElementById('parts-unlocked');
-var showCvButton = document.getElementById('show-cv');
-var contactButton = document.getElementById('contact');
-
-
-//Génère une position X aléatoire
+// Génère une position X aléatoire
 function random (min, max) {
   return Math.random() * ((max - min) - min) + min;
-}
+};
 
-//Créer une modal
+// Créer une modal
 function showEndMessage (config) {
   var textMessage = {
     win: 'Awesome ! Vous avez réussi',
     lose: 'Oh non....il reste tant à découvrir !'
   };
-  var modalContainer = document.getElementById('modal-container');
-  modalContainer.style.width = config.canvasWidth + 'px';
-  modalContainer.style.height = config.canvasHeight + 'px';
   var scoreParagraph = document.getElementById('score');
   var messageParagraph = document.getElementById('message');
-
+  endMessageModalContainer.style.width = config.canvasWidth + 'px';
+  endMessageModalContainer.style.height = config.canvasHeight + 'px';
   scoreParagraph.innerHTML = 'Score: ' + config.newScore.score;
   messageParagraph.innerHTML = textMessage[config.textKey];
-  modalContainer.className = 'show';
+  endMessageModalContainer.className = 'show';
 };
 
-partsUnlockedButton.addEventListener('click', function(event) {
-  event.preventDefault();
-  var cvPartsContainer = document.getElementById('rub-win');
-  cvPartsContainer.style.width = game.getSize().canvasWidth + 'px';
-  console.log(game.getSize().canvasWidth);
-  cvPartsContainer.style.height = game.getSize().canvasHeight + 'px';
-  cvPartsContainer.className = 'show';
-});
-
-// Relance une partie
-restartButton.addEventListener('click', function(event) {
-  event.preventDefault();
-  game.start();
-});
-
-game.start();
+function showOpeningModal () {
+  openingModal.style.width = game.getSize().canvasWidth + 'px';
+  openingModal.style.height = game.getSize().canvasHeight + 'px';
+};

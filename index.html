@@ -9,16 +9,21 @@
     <link rel="stylesheet" href="./styles/style.css">
     <link rel="stylesheet" href="./styles/modal.css">
     <link rel="stylesheet" href="./styles/rub-win.css">
+    <link rel="stylesheet" href="./styles/opening-modal.css">
   </head>
   <body>
     <header>
       <h1>Hello you</h1>
     </header>
     <main>
-      <div id="canvas-container">
+      <div id="game-container">
+        <div id="opening-modal" class="show">
+          <button id="start-game-button" type="button">Jouer</button>
+          <button id="skip-game-button"type="button">Allez directement au CV</button>
+        </div>
         <canvas id="canvas"></canvas>
-        <div id=modal-container class="hide">
-          <div id="modal">
+        <div id="end-message-modal-container" class="hide">
+          <div id="end-message-modal">
             <div id="text-container">
               <p id="score"></p>
               <p id="message"></p>
@@ -27,7 +32,7 @@
               <button id="restart" type="button"><i class="fa fa-refresh fa-2x" aria-hidden="true" title="Recommencer"></i></button>
               <button id="show-cv" type="button"><i class="fa fa-file-text-o fa-2x" aria-hidden="true" title="Aller au CV"></i></button>
               <button id="contact" type="button"><i class="fa fa-pencil fa-2x" aria-hidden="true" title="Me contacter"></i></button>
-              <button id="parts-unlocked" type="button"><i class="fa fa-trophy fa-2x" aria-hidden="true" title="Voir les records"></i></button>
+              <button id="cv-parts-unlocked" type="button"><i class="fa fa-trophy fa-2x" aria-hidden="true" title="Voir les records"></i></button>
             </div>
           </div>
         </div>

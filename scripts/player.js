@@ -1,13 +1,13 @@
-//Constructeur du joueur
+//  Constructeur du joueur
 function Player (config) {
-  var shotDate = undefined;
-  //Défini la position initiale du joueur
+  var shotDate;
+  //  Défini la position initiale du joueur
   this.radius = 40;
   this.x = this.radius * 2;
   this.y = config.canvasHeight / 2;
   this.context = config.ctx;
 
-  //Défini si la forme s'affiche
+  // Défini si la forme s'affiche
   this.life = 1;
   this.render = function () {
     this.context.beginPath();
@@ -17,35 +17,35 @@ function Player (config) {
     this.context.closePath();
     checkEvents.apply(this);
   };
-  //Vitesse de déplacement
+  // Vitesse de déplacement
   this.speed = config.speed;
-  //Gestion des déplacements latéraux
+  // Gestion des déplacements latéraux
   function goUp () {
-    if(this.y <= 0 + this.radius) {
+    if (this.y <= 0 + this.radius) {
       return;
     }
     this.y -= this.speed;
   }
 
   function goDown () {
-    if(this.y >= config.canvasHeight - this.radius) {
+    if (this.y >= config.canvasHeight - this.radius) {
       return;
     }
     this.y += this.speed;
   }
 
-  function checkEvents() {
-    if(pressedKeys.ArrowUp) {
+  function checkEvents () {
+    if (pressedKeys.ArrowUp) {
       goUp.apply(this);
     }
-    if(pressedKeys.ArrowDown) {
+    if (pressedKeys.ArrowDown) {
       goDown.apply(this);
     }
-    if(pressedKeys.Shift) {
+    if (pressedKeys.Shift) {
       shotDate = config.launchAmmo(config.allAmmos.player, this.x, this.y, -1, shotDate, 500);
     }
   };
-  this.removeLife = function() {
+  this.removeLife = function () {
     this.life -= 1;
   };
 };
