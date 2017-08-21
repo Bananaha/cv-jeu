@@ -7,26 +7,29 @@ var colors = {
 };
 var pressedKeys = {};
 
+var game = new Game();
+
 // Boutons des modals
+var openingModal = document.getElementById('opening-modal');
+var startGameButton = document.getElementById('start-game-button');
+var skipGameButton = document.getElementById('skip-game-button');
+var endMessageModalContainer = document.getElementById('end-message-modal-container');
 var restartButton = document.getElementById('restart');
 var cvPartsUnlockedButton = document.getElementById('cv-parts-unlocked');
 var showCvButton = document.getElementById('show-cv');
 var contactButton = document.getElementById('contact');
-var openingModal = document.getElementById('opening-modal');
-var endMessageModalContainer = document.getElementById('end-message-modal-container');
-var startGameButton = document.getElementById('start-game-button');
-var skipGameButton = document.getElementById('skip-game-button');
 
 // Event listeners sur les touches du clavier et souris
 window.addEventListener('keydown', function (event) {
   event.preventDefault();
   pressedKeys[event.key] = true;
 });
+
 window.addEventListener('keyup', function (event) {
   event.preventDefault();
   pressedKeys[event.key] = false;
 });
-window.addEventListener('load', showOpeningModal);
+
 cvPartsUnlockedButton.addEventListener('click', function (event) {
   event.preventDefault();
   var cvPartsContainer = document.getElementById('rub-win');
@@ -34,23 +37,20 @@ cvPartsUnlockedButton.addEventListener('click', function (event) {
   cvPartsContainer.style.height = game.getSize().canvasHeight + 'px';
   cvPartsContainer.className = 'show';
 });
+
 window.addEventListener('load', function () {
-  showOpeningModal();
+  openingModal.style.width = game.getSize().canvasWidth + 'px';
+  openingModal.style.height = game.getSize().canvasHeight + 'px';
 });
 
-function translateY (element) {
-  element.style.transform = 'translateY(' + game.getSize().canvasHeight + 'px)';
-}
 startGameButton.addEventListener('click', function () {
   translateY(startGameButton);
   translateY(skipGameButton);
-  setTimeout(function () {
-    openingModal.className = 'hide';
-    game.start()
-  }, 1000);
+  delayedHide(openingModal);
 });
 
-skipGameButton.addEventListener('click', function () {
+skipGameButton.addEventListener('click', function (event) {
+  event.preventDefault();
   translateY(startGameButton);
   translateY(skipGameButton);
 });
@@ -58,17 +58,20 @@ skipGameButton.addEventListener('click', function () {
 // Relance une partie
 restartButton.addEventListener('click', function (event) {
   event.preventDefault();
-  endMessageModalContainer.className = 'hide';
+  var endMessageModal = document.getElementById('end-message-modal');
+  translateY(endMessageModal);
+  delayedHide(endMessageModalContainer);
   game.start();
 });
-
-var game = new Game();
 
 // Génère une position X aléatoire
 function random (min, max) {
   return Math.random() * ((max - min) - min) + min;
 };
 
+function translateY (element) {
+  element.style.transform = ' translateY(' + game.getSize().canvasHeight + 'px)';
+}
 // Créer une modal
 function showEndMessage (config) {
   var textMessage = {
@@ -84,7 +87,9 @@ function showEndMessage (config) {
   endMessageModalContainer.className = 'show';
 };
 
-function showOpeningModal () {
-  openingModal.style.width = game.getSize().canvasWidth + 'px';
-  openingModal.style.height = game.getSize().canvasHeight + 'px';
+function delayedHide (element) {
+  setTimeout(function () {
+    element.className = 'hide';
+    game.start()
+  }, 1000);
 };

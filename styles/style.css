@@ -3,6 +3,7 @@ body {
   background-color: #F2F2F2;
   color: #363636;
   font-family: 'Roboto', sans-serif;
+  transition: all 2s ease;
 }
 
 header {
@@ -27,9 +28,27 @@ main {
   align-items: center;
 }
 
-canvas {
-  margin-top: 20px;
-  border: 1px solid black;
+button {
+  height: 50px;
+  border: none;
+  vertical-align: middle;
+  color: #5900AB;
+  background: #F2F2F2;
+  transition: all 2s ease;
+}
+
+button:hover, button:active, button:focus  {
+  outline: none;
+}
+
+button:hover {
+  color: #47C6FF;
+}
+
+button i {
+  vertical-align: middle;
+  float: left;
+  margin: 5px;
 }
 
 .show {
@@ -45,7 +64,7 @@ p {
   margin: 5px;
 }
 
-.comments {
+/*.comments {
   font-size: 12px;
 }
 
@@ -77,4 +96,4 @@ li {
 
 .row ul {
   width: 50%;
-}
+}*/

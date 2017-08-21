@@ -6,6 +6,10 @@ function Player (config) {
   this.x = this.radius * 2;
   this.y = config.canvasHeight / 2;
   this.context = config.ctx;
+  var image = new Image();
+  image.src = game.getImage().unicorn;
+  console.log(game.IMG.unicorn);
+  this.context.drawImage(image, this.x, this.y);
 
   // Défini si la forme s'affiche
   this.life = 1;
@@ -18,7 +22,7 @@ function Player (config) {
     checkEvents.apply(this);
   };
   // Vitesse de déplacement
-  this.speed = config.speed;
+  this.speed = config.SPEED;
   // Gestion des déplacements latéraux
   function goUp () {
     if (this.y <= 0 + this.radius) {

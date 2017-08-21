@@ -1,7 +1,7 @@
 function Game () {
   var canvas = document.getElementById('canvas');
-  canvas.width = window.innerWidth - 200;
-  canvas.height = window.innerHeight - 100;
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight - 80;
   var ctx = canvas.getContext('2d');
 
   var canvasHeight = canvas.height;
@@ -17,11 +17,30 @@ function Game () {
   var newScore;
 
   var BOSS_MAXY = canvasWidth;
-  var speed = 20;
-  var img = {
-    heart: './assets/redHeart.png',
+  var SPEED = 20;
+  var IMG = {
+    ennemyBlue: './assets/ennemy-pink.png',
+    ennemyPink: './assets/ennemy-blue.png',
+    ennemyYellow: './assets/ennemy-yellow.png',
+    forestBack: './assets/forest-back.png',
+    forestFront: './assets/forest-front.png',
+    heartFull: './assets/heart-full.png',
+    heartEmpty: './assets/heart-empty.png',
+    hillFront: './assets/hill-front.png',
+    hillBack: './assets/hill-back.png',
+    montainBack: './assets/montain-back.png',
+    montainFront: './assets/montain-front.png',
+    montainMiddle: './assets/montain-middle.png',
+    shotCircle: './assets/shot-circle.png',
+    shotRainbow: './assets/shot-rainbow.png',
+    unicorn: './assets/unicorn.png',
+    unicornRainbow: './assets/unicorn-rainbow.png',
     restart: './assets/return.png',
     information: './assets/information.png'
+  };
+
+  this.getImage = function () {
+    return IMG
   };
 
   this.getSize = function () {
@@ -40,10 +59,10 @@ function Game () {
   };
   // Affiche les vies du joueur
   function drawLives (source, size) {
-    var img = new Image();
-    img.src = source;
+    var IMG = new Image();
+    IMG.src = source;
     for (var i = 0; i < player.life; i++) {
-      ctx.drawImage(img, 30 * i + 10, 45, size, size);
+      ctx.drawImage(IMG, 30 * i + 10, 45, size, size);
     };
   };
 
@@ -73,7 +92,7 @@ function Game () {
       ctx: ctx,
       canvasHeight: canvasHeight,
       canvasWidth: canvasWidth,
-      speed: speed,
+      SPEED: SPEED,
       allAmmos: allAmmos,
       launchAmmo: launchAmmo
     });
@@ -88,7 +107,7 @@ function Game () {
         ctx: ctx,
         canvasHeight: canvasHeight,
         canvasWidth: canvasWidth,
-        speed: speed,
+        SPEED: SPEED,
         random: random,
         newScore: newScore
       }));
@@ -100,7 +119,7 @@ function Game () {
       date = Date.now();
       array.push(new Ammo(x, y, direction, {
         ctx: ctx,
-        speed: speed
+        SPEED: SPEED
       }));
     }
     return date;
@@ -176,7 +195,7 @@ function Game () {
           ctx: ctx,
           canvasHeight: canvasHeight,
           canvasWidth: canvasWidth,
-          speed: speed,
+          SPEED: SPEED,
           BOSS_MAXY: BOSS_MAXY,
           allAmmos: allAmmos,
           random: random,
@@ -206,7 +225,7 @@ function Game () {
 
     // Affiche le score et la nombre de vies de la partie en cours
     drawText(10, 30, 'Score: ' + newScore.score, 16, colors.text);
-    drawLives(img.heart, 20);
+    drawLives(IMG.heartFull, 20);
 
     // Modal en cas de partie perdue
     if (player.life <= 0) {

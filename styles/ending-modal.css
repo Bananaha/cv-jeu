@@ -1,16 +1,16 @@
-#FF0013, #FF9713, #FFE213, #2DCE13, #47C6FF, #5900AB;
+/*#FF0013, #FF9713, #FFE213, #2DCE13, #47C6FF, #5900AB;*/
 
 #end-message-modal-container {
   position: absolute;
   background-color: rgba(255, 255, 255, 0.58);
-  margin-top: 20px;
   top: 0;
   justify-content: space-around;
   align-items: center;
+  transition: all 2s ease;
 }
 
 #end-message-modal {
-  background-color: #f9dc19;
+  background-color: #F2F2F2;
   width: 400px;
   height: 200px;
   /*margin: 50% auto 0;*/
@@ -21,6 +21,7 @@
   display: flex;
   justify-content: space-around;
   flex-direction: column;
+  transition: all 2s ease;
 }
 
 #button-container {
@@ -28,27 +29,4 @@
   justify-content: space-around;
   font-size: 16px;
   padding-top: 20px;
-}
-
-button {
-  height: 40px;
-  background: #5900AB;
-  border: none;
-  vertical-align: middle;
-  color: #F2F2F2;
-  transition: all 2s ease;
-}
-
-button:hover, button:active, button:focus  {
-  outline: none;
-}
-
-button:hover {
-  background: #47C6FF;
-}
-
-
-button i {
-  vertical-align: middle;
-  margin: 5px;
 }

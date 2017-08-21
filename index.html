@@ -3,23 +3,23 @@
   <head>
     <meta charset="utf-8">
     <title>Hello you</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     <link rel="stylesheet" href="./vendors/font-awesome/font-awesome.min.css">
     <link rel="stylesheet" href="./styles/reset.css">
     <link rel="stylesheet" href="./styles/style.css">
-    <link rel="stylesheet" href="./styles/modal.css">
     <link rel="stylesheet" href="./styles/rub-win.css">
+    <link rel="stylesheet" href="./styles/ending-modal.css">
     <link rel="stylesheet" href="./styles/opening-modal.css">
   </head>
   <body>
-    <header>
+    <header id="header">
       <h1>Hello you</h1>
     </header>
     <main>
       <div id="game-container">
         <div id="opening-modal" class="show">
           <button id="start-game-button" type="button">Jouer</button>
-          <button id="skip-game-button"type="button">Allez directement au CV</button>
+          <button id="skip-game-button"type="button">Voir mon CV</button>
         </div>
         <canvas id="canvas"></canvas>
         <div id="end-message-modal-container" class="hide">
@@ -29,10 +29,10 @@
               <p id="message"></p>
             </div>
             <div id="button-container">
-              <button id="restart" type="button"><i class="fa fa-refresh fa-2x" aria-hidden="true" title="Recommencer"></i></button>
-              <button id="show-cv" type="button"><i class="fa fa-file-text-o fa-2x" aria-hidden="true" title="Aller au CV"></i></button>
-              <button id="contact" type="button"><i class="fa fa-pencil fa-2x" aria-hidden="true" title="Me contacter"></i></button>
-              <button id="cv-parts-unlocked" type="button"><i class="fa fa-trophy fa-2x" aria-hidden="true" title="Voir les records"></i></button>
+              <button id="restart" type="button"><i class="fa fa-refresh fa-2x fa-fw" aria-hidden="true" title="Recommencer"></i></button>
+              <button id="show-cv" type="button"><i class="fa fa-file-text-o fa-2x fa-fw" aria-hidden="true" title="Aller au CV"></i></button>
+              <button id="contact" type="button"><i class="fa fa-pencil fa-2x fa-fw" aria-hidden="true" title="Me contacter"></i></button>
+              <button id="cv-parts-unlocked" type="button"><i class="fa fa-trophy fa-2x fa-fw" aria-hidden="true" title="Voir les records"></i></button>
             </div>
           </div>
         </div>

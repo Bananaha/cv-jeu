@@ -1,6 +1,5 @@
 #opening-modal {
   position: absolute;
-  margin-top: 20px;
   top: 0;
   justify-content: space-around;
   align-items: center;
@@ -9,4 +8,11 @@
 
 #opening-modal button {
   width: 200px;
+  background: #5900AB;
+  color: #F2F2F2;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+#opening-modal button:hover {
+  background: #47C6FF;
 }
