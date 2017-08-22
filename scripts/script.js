@@ -46,7 +46,12 @@ window.addEventListener('load', function () {
 startGameButton.addEventListener('click', function () {
   translateY(startGameButton);
   translateY(skipGameButton);
-  delayedHide(openingModal);
+  setTimeout(function () {
+    openingModal.className = 'hide';
+    removeAttr(startGameButton, 'style');
+    removeAttr(skipGameButton, 'style');
+    game.start()
+  }, 1000);
 });
 
 skipGameButton.addEventListener('click', function (event) {
@@ -60,8 +65,11 @@ restartButton.addEventListener('click', function (event) {
   event.preventDefault();
   var endMessageModal = document.getElementById('end-message-modal');
   translateY(endMessageModal);
-  delayedHide(endMessageModalContainer);
-  game.start();
+  setTimeout(function () {
+    endMessageModalContainer.className = 'hide';
+    removeAttr(endMessageModal, 'style');
+    game.start()
+  }, 1000);
 });
 
 // Génère une position X aléatoire
@@ -71,7 +79,18 @@ function random (min, max) {
 
 function translateY (element) {
   element.style.transform = ' translateY(' + game.getSize().canvasHeight + 'px)';
-}
+};
+
+function removeAttr (element, attribute) {
+  element.removeAttribute(attribute);
+};
+
+function getImageSize (element) {
+  return {
+    width: element.naturalWidth,
+    height: element.naturalHeight
+  }
+};
 // Créer une modal
 function showEndMessage (config) {
   var textMessage = {
@@ -85,11 +104,4 @@ function showEndMessage (config) {
   scoreParagraph.innerHTML = 'Score: ' + config.newScore.score;
   messageParagraph.innerHTML = textMessage[config.textKey];
   endMessageModalContainer.className = 'show';
-};
-
-function delayedHide (element) {
-  setTimeout(function () {
-    element.className = 'hide';
-    game.start()
-  }, 1000);
 };

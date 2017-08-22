@@ -19,8 +19,9 @@ function Game () {
   var BOSS_MAXY = canvasWidth;
   var SPEED = 20;
   var IMG = {
-    ennemyBlue: './assets/ennemy-pink.png',
-    ennemyPink: './assets/ennemy-blue.png',
+    ennemyBlue: './assets/ennemy-blue.png',
+    ennemyBrown: './assets/ennemy-brown.png',
+    ennemyPink: './assets/ennemy-pink.png',
     ennemyYellow: './assets/ennemy-yellow.png',
     forestBack: './assets/forest-back.png',
     forestFront: './assets/forest-front.png',
@@ -109,7 +110,8 @@ function Game () {
         canvasWidth: canvasWidth,
         SPEED: SPEED,
         random: random,
-        newScore: newScore
+        newScore: newScore,
+        gameStage: gameStage
       }));
     }
   };
@@ -203,7 +205,6 @@ function Game () {
           newScore: newScore
         }));
         gameStage++;
-        console.log(gameStage);
         createBoss = true;
       }
     }
@@ -254,7 +255,6 @@ function Game () {
   };
 
   this.start = function () {
-    console.log('game init');
     allAmmos = {
       player: [],
       boss: []

@@ -2,21 +2,22 @@
 
 #end-message-modal-container {
   position: absolute;
-  background-color: rgba(255, 255, 255, 0.58);
-  top: 0;
+  background: #F2F2F2;
+  top: 80px;
   justify-content: space-around;
   align-items: center;
   transition: all 2s ease;
 }
 
 #end-message-modal {
-  background-color: #F2F2F2;
+  background: #5900AB;
+  color: #F2F2F2;
   width: 400px;
   height: 200px;
-  /*margin: 50% auto 0;*/
+  border-radius: 2px;
   padding-top: 10px;
   text-align: center;
-  font-size: 20px;
+  font-size: 16px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   display: flex;
   justify-content: space-around;
@@ -29,4 +30,13 @@
   justify-content: space-around;
   font-size: 16px;
   padding-top: 20px;
+}
+
+#button-container button {
+  background: #5900AB;
+  color: #F2F2F2;
+}
+
+#button-container button:hover {
+  color: #FF0013;
 }
