@@ -8,7 +8,7 @@ function Player (config) {
   this.context = config.ctx;
 
   // Défini si la forme s'affiche
-  this.life = 20;
+  this.life = 1;
   this.render = function () {
     var image = new Image();
     image.src = config.image;
@@ -46,7 +46,7 @@ function Player (config) {
       goDown.apply(this);
     }
     if (pressedKeys.Shift) {
-      shotDate = config.launchAmmo(config.allAmmos.player, this.x, this.y, -1, shotDate, 500);
+      shotDate = config.launchAmmo(config.allAmmos.player, this.x, this.y, -1, shotDate, 500, 'player');
     }
   };
   this.removeLife = function () {

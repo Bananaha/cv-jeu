@@ -13,12 +13,12 @@ function Game () {
   var ennemiesCounter;
   var gameStage;
   var createBoss;
-  var raf;
   var newScore;
   var started = false;
 
   var BOSS_MAXY = canvasWidth;
   var SPEED = 20;
+
   var IMG = {
     ennemyBlue: './assets/ennemy-blue.png',
     ennemyBrown: './assets/ennemy-brown.png',
@@ -45,13 +45,15 @@ function Game () {
     canvasWidth: canvasWidth,
     canvasHeight: canvasHeight,
     context: ctx,
-    mountainBack: IMG.mountainBack,
-    mountainMiddle: IMG.mountainMiddle,
-    mountainFront: IMG.mountainFront,
-    forestFront: IMG.forestFront,
-    forestBack: IMG.forestBack,
-    hillBack: IMG.hillBack,
-    hillFront: IMG.hillFront
+    assets: {
+      mountainBack: IMG.mountainBack,
+      mountainMiddle: IMG.mountainMiddle,
+      mountainFront: IMG.mountainFront,
+      forestFront: IMG.forestFront,
+      forestBack: IMG.forestBack,
+      hillBack: IMG.hillBack,
+      hillFront: IMG.hillFront
+    }
   });
 
   this.getSize = function () {
@@ -125,14 +127,14 @@ function Game () {
           ennemyBlue: IMG.ennemyBlue,
           ennemyPink: IMG.ennemyPink,
           ennemyBrown: IMG.ennemyBrown,
-          ennemyYellow: IMG.ennemyYellow,
+          ennemyYellow: IMG.ennemyYellow
         },
         gameStage: gameStage
       }));
     }
   };
   // Générateur de munitions
-  function launchAmmo (array, x, y, direction, date, delay) {
+  function launchAmmo (array, x, y, direction, date, delay, shooter) {
     if (!date || Date.now() - date >= delay) {
       date = Date.now();
       array.push(new Ammo(x, y, direction, {
@@ -140,9 +142,8 @@ function Game () {
         SPEED: SPEED,
         shotCircle: IMG.shotCircle,
         shotRainbow: IMG.shotRainbow,
-        childOf: 'toto'
+        parent: shooter
       }));
-      console.log(array);
     }
     return date;
   };
@@ -157,11 +158,11 @@ function Game () {
     var lastFrameDate = Date.now();
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
     background.render();
-    console.log(started);
     if (!started) {
-      raf = window.requestAnimationFrame(draw);
+      window.requestAnimationFrame(draw);
       return
     }
+
     // Gérer la collision player vs Ennemis
     handleCollision(player, ennemies);
     // Gérer la collision player vs ammo ennemis
@@ -274,10 +275,9 @@ function Game () {
     }
 
     if (player.life <= 0 || (gameStage === 5 && bosses.length === 0)) {
-      cancelAnimationFrame(raf);
-    } else {
-      raf = window.requestAnimationFrame(draw);
+      started = false;
     }
+    window.requestAnimationFrame(draw);
   };
 
   this.start = function () {
@@ -297,6 +297,7 @@ function Game () {
     };
     player = createPlayer();
     started = true;
+    draw();
   }
   draw();
 };

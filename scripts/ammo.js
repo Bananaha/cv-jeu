@@ -22,12 +22,10 @@ function Ammo (x, y, sens, config) {
     this.context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
     this.context.fill();
     this.context.closePath();
-
-
-    // if(config.childOf.parentNode === 'toto') {
+    if (config.parent === 'player') {
       this.context.drawImage(shotCircle, this.x - getImageSize(shotCircle).width / 2, this.y - getImageSize(shotCircle).height / 2);
       this.context.drawImage(shotRainbow, this.x - getImageSize(shotCircle).width / 2 - getImageSize(shotRainbow).width, this.y - ((getImageSize(shotCircle).height - getImageSize(shotRainbow).height) / 2) - 5);
-    // }
+    }
   };
   this.removeLife = function () {
     this.life -= 1;

@@ -33,7 +33,7 @@ var Boss = function (config) {
   function checkForShot () {
     // le boss tire dès qu'il atteint sa position finale
     if (this.x === config.BOSS_MAXY) {
-      shotDate = config.launchAmmo(config.allAmmos.boss, this.x - this.radius, config.random(0, this.radius * 2), 1, shotDate, config.shotSpeed);
+      shotDate = config.launchAmmo(config.allAmmos.boss, this.x - this.radius, config.random(0, this.radius * 2), 1, shotDate, config.shotSpeed, 'boss');
     }
   }
   this.removeLife = function () {

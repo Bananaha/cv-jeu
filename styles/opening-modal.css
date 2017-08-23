@@ -1,7 +1,7 @@
 #opening-modal {
   position: absolute;
   top: 80px;
-  background: #5900AB;
+  background: rgba(0, 0, 0, 0);
   justify-content: space-around;
   align-items: center;
   overflow: hidden;

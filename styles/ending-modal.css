@@ -2,7 +2,7 @@
 
 #end-message-modal-container {
   position: absolute;
-  background: #F2F2F2;
+  background: rgba(0, 0, 0, 0);
   top: 80px;
   justify-content: space-around;
   align-items: center;

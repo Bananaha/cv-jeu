@@ -72,7 +72,7 @@ restartButton.addEventListener('click', function (event) {
   setTimeout(function () {
     endMessageModalContainer.className = 'hide';
     removeAttr(endMessageModal, 'style');
-    game.start()
+    game.start();
   }, 1000);
 });
 
