@@ -1,8 +1,12 @@
 var colors = {
-  primary: '#f9dc19',
+  // primary: '#f9dc19',
+  primary: 'rgba(255, 255, 255, 0)',
   transparency: 'rgba(255, 255, 255, 0.58)',
   ammo: '#e74444',
-  ennemy: '#23a3db',
+  // ammo: 'rgba(255, 255, 255, 0)',
+  // ennemy: '#23a3db',
+  boss: '#ddf525',
+  ennemy: 'rgba(255, 255, 255, 0)',
   text: '#505050'
 };
 var pressedKeys = {};
@@ -91,6 +95,19 @@ function getImageSize (element) {
     height: element.naturalHeight
   }
 };
+
+function drawImg (config) {
+  var image = new Image();
+  image.src = game.getImage().config.src;
+  this.context.drawImage(image, this.x, this.y);
+}
+
+function insertAsset (asset) {
+  var asset = new Image();
+  asset.src = config.asset;
+  this.context.drawImage(asset, 0, config.canvasHeight - getImageSize(asset).height);
+};
+
 // Créer une modal
 function showEndMessage (config) {
   var textMessage = {

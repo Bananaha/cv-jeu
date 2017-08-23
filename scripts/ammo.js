@@ -1,5 +1,9 @@
 // Contructeur de munitions
 function Ammo (x, y, sens, config) {
+  var shotRainbow = new Image();
+  var shotCircle = new Image();
+  shotCircle.src = config.shotCircle;
+  shotRainbow.src = config.shotRainbow;
   this.context = config.ctx;
   this.radius = 10;
   this.originX = x;
@@ -18,6 +22,12 @@ function Ammo (x, y, sens, config) {
     this.context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
     this.context.fill();
     this.context.closePath();
+
+
+    // if(config.childOf.parentNode === 'toto') {
+      this.context.drawImage(shotCircle, this.x - getImageSize(shotCircle).width / 2, this.y - getImageSize(shotCircle).height / 2);
+      this.context.drawImage(shotRainbow, this.x - getImageSize(shotCircle).width / 2 - getImageSize(shotRainbow).width, this.y - ((getImageSize(shotCircle).height - getImageSize(shotRainbow).height) / 2) - 5);
+    // }
   };
   this.removeLife = function () {
     this.life -= 1;

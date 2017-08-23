@@ -8,10 +8,10 @@ function Player (config) {
   this.context = config.ctx;
 
   // Défini si la forme s'affiche
-  this.life = 1;
+  this.life = 20;
   this.render = function () {
     var image = new Image();
-    image.src = game.getImage().unicorn;
+    image.src = config.image;
     this.context.beginPath();
     this.context.fillStyle = colors.primary;
     this.context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);

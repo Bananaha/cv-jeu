@@ -22,7 +22,7 @@ var Boss = function (config) {
     }
     // Définir les paramètres de l'objet
     this.context.beginPath();
-    this.context.fillStyle = colors.ennemy;
+    this.context.fillStyle = colors.boss;
     this.context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
     this.context.fill();
     this.context.closePath();

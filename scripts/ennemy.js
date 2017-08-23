@@ -3,16 +3,16 @@ function Ennemy (speedCoeff, config) {
   var image = new Image();
   switch (config.gameStage) {
     case 1:
-      image.src = game.getImage().ennemyBlue;
+      image.src = config.image.ennemyBlue;
       break;
     case 2:
-      image.src = game.getImage().ennemyPink;
+      image.src = config.image.ennemyPink;
       break;
     case 3:
-      image.src = game.getImage().ennemyYellow;
+      image.src = config.image.ennemyYellow;
       break;
     case 4:
-      image.src = game.getImage().ennemyBrown;
+      image.src = config.image.ennemyBrown;
       break;
   }
   this.context = config.ctx;
@@ -38,7 +38,6 @@ function Ennemy (speedCoeff, config) {
     this.context.closePath();
     this.context.beginPath();
     this.context.drawImage(image, this.x - getImageSize(image).width / 2, this.y - getImageSize(image).height / 2);
-    console.log('ennemy', getImageSize(image).height);
   };
   this.removeLife = function (collidedElement) {
     this.life -= 1;

@@ -15,6 +15,7 @@ function Game () {
   var createBoss;
   var raf;
   var newScore;
+  var started = false;
 
   var BOSS_MAXY = canvasWidth;
   var SPEED = 20;
@@ -29,9 +30,9 @@ function Game () {
     heartEmpty: './assets/heart-empty.png',
     hillFront: './assets/hill-front.png',
     hillBack: './assets/hill-back.png',
-    montainBack: './assets/montain-back.png',
-    montainFront: './assets/montain-front.png',
-    montainMiddle: './assets/montain-middle.png',
+    mountainBack: './assets/mountain-back.png',
+    mountainFront: './assets/mountain-front.png',
+    mountainMiddle: './assets/mountain-middle.png',
     shotCircle: './assets/shot-circle.png',
     shotRainbow: './assets/shot-rainbow.png',
     unicorn: './assets/unicorn.png',
@@ -40,9 +41,18 @@ function Game () {
     information: './assets/information.png'
   };
 
-  this.getImage = function () {
-    return IMG
-  };
+  var background = new Background({
+    canvasWidth: canvasWidth,
+    canvasHeight: canvasHeight,
+    context: ctx,
+    mountainBack: IMG.mountainBack,
+    mountainMiddle: IMG.mountainMiddle,
+    mountainFront: IMG.mountainFront,
+    forestFront: IMG.forestFront,
+    forestBack: IMG.forestBack,
+    hillBack: IMG.hillBack,
+    hillFront: IMG.hillFront
+  });
 
   this.getSize = function () {
     return {
@@ -50,7 +60,6 @@ function Game () {
       canvasWidth: canvasWidth
     }
   };
-
   // Affiche le score du joueur
   function drawText (x, y, text, fontSize, color) {
     ctx.font = fontSize + 'px Roboto';
@@ -95,7 +104,8 @@ function Game () {
       canvasWidth: canvasWidth,
       SPEED: SPEED,
       allAmmos: allAmmos,
-      launchAmmo: launchAmmo
+      launchAmmo: launchAmmo,
+      image: IMG.unicorn
     });
   };
 
@@ -111,6 +121,12 @@ function Game () {
         SPEED: SPEED,
         random: random,
         newScore: newScore,
+        image: {
+          ennemyBlue: IMG.ennemyBlue,
+          ennemyPink: IMG.ennemyPink,
+          ennemyBrown: IMG.ennemyBrown,
+          ennemyYellow: IMG.ennemyYellow,
+        },
         gameStage: gameStage
       }));
     }
@@ -121,8 +137,12 @@ function Game () {
       date = Date.now();
       array.push(new Ammo(x, y, direction, {
         ctx: ctx,
-        SPEED: SPEED
+        SPEED: SPEED,
+        shotCircle: IMG.shotCircle,
+        shotRainbow: IMG.shotRainbow,
+        childOf: 'toto'
       }));
+      console.log(array);
     }
     return date;
   };
@@ -136,6 +156,12 @@ function Game () {
   function draw () {
     var lastFrameDate = Date.now();
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+    background.render();
+    console.log(started);
+    if (!started) {
+      raf = window.requestAnimationFrame(draw);
+      return
+    }
     // Gérer la collision player vs Ennemis
     handleCollision(player, ennemies);
     // Gérer la collision player vs ammo ennemis
@@ -270,6 +296,7 @@ function Game () {
       score: 2900
     };
     player = createPlayer();
-    draw();
+    started = true;
   }
+  draw();
 };
