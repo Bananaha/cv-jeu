@@ -33,23 +33,26 @@ var IMG = {
   restart: './assets/return.png',
   information: './assets/information.png'
 };
+
+this.gameImages = {};
+
 var imagesCount = Object.keys(IMG).length;
 var loadedImagesCount = 0;
 
 for (var key in IMG) {
   var image = new Image();
   image.src = IMG[key];
+  this.gameImages[key] = image;
   image.onload = function () {
     loadedImagesCount++;
-    console.log(loadedImagesCount, imagesCount);
     if (loadedImagesCount === imagesCount) {
-      console.log('toto');
       game = new Game();
       openingModal.style.width = game.getSize().canvasWidth + 'px';
       openingModal.style.height = game.getSize().canvasHeight + 'px';
     }
   }
 }
+
 // Modals
 var openingModal = document.getElementById('opening-modal');
 var endMessageModalContainer = document.getElementById('end-message-modal-container');
@@ -128,18 +131,6 @@ function getImageSize (element) {
     height: element.naturalHeight
   }
 };
-
-// function drawImg (config) {
-//   var image = new Image();
-//   image.src = game.getImage().config.src;
-//   this.context.drawImage(image, this.x, this.y);
-// }
-
-// function insertAsset (asset) {
-//   var asset = new Image();
-//   asset.src = config.asset;
-//   this.context.drawImage(asset, 0, config.canvasHeight - getImageSize(asset).height);
-// };
 
 // Créer une modal
 function showEndMessage (config) {
