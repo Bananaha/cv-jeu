@@ -1,3 +1,4 @@
+var game;
 var colors = {
   // primary: '#f9dc19',
   primary: 'rgba(255, 255, 255, 0)',
@@ -11,19 +12,56 @@ var colors = {
 };
 var pressedKeys = {};
 
-var game = new Game();
+var IMG = {
+  ennemyBlue: './assets/ennemy-blue.png',
+  ennemyBrown: './assets/ennemy-brown.png',
+  ennemyPink: './assets/ennemy-pink.png',
+  ennemyYellow: './assets/ennemy-yellow.png',
+  forestBack: './assets/forest-back.png',
+  forestFront: './assets/forest-front.png',
+  heartFull: './assets/heart-full.png',
+  heartEmpty: './assets/heart-empty.png',
+  hillFront: './assets/hill-front.png',
+  hillBack: './assets/hill-back.png',
+  mountainBack: './assets/mountain-back.png',
+  mountainFront: './assets/mountain-front.png',
+  mountainMiddle: './assets/mountain-middle.png',
+  shotCircle: './assets/shot-circle.png',
+  shotRainbow: './assets/shot-rainbow.png',
+  unicorn: './assets/unicorn.png',
+  unicornRainbow: './assets/unicorn-rainbow.png',
+  restart: './assets/return.png',
+  information: './assets/information.png'
+};
+var imagesCount = Object.keys(IMG).length;
+var loadedImagesCount = 0;
 
-// Boutons des modals
+for (var key in IMG) {
+  var image = new Image();
+  image.src = IMG[key];
+  image.onload = function () {
+    loadedImagesCount++;
+    console.log(loadedImagesCount, imagesCount);
+    if (loadedImagesCount === imagesCount) {
+      console.log('toto');
+      game = new Game();
+      openingModal.style.width = game.getSize().canvasWidth + 'px';
+      openingModal.style.height = game.getSize().canvasHeight + 'px';
+    }
+  }
+}
+// Modals
 var openingModal = document.getElementById('opening-modal');
+var endMessageModalContainer = document.getElementById('end-message-modal-container');
+// Boutons des modals
 var startGameButton = document.getElementById('start-game-button');
 var skipGameButton = document.getElementById('skip-game-button');
-var endMessageModalContainer = document.getElementById('end-message-modal-container');
 var restartButton = document.getElementById('restart');
 var cvPartsUnlockedButton = document.getElementById('cv-parts-unlocked');
 var showCvButton = document.getElementById('show-cv');
 var contactButton = document.getElementById('contact');
 
-// Event listeners sur les touches du clavier et souris
+// Event listeners sur les touches du clavier
 window.addEventListener('keydown', function (event) {
   event.preventDefault();
   pressedKeys[event.key] = true;
@@ -40,11 +78,6 @@ cvPartsUnlockedButton.addEventListener('click', function (event) {
   cvPartsContainer.style.width = game.getSize().canvasWidth + 'px';
   cvPartsContainer.style.height = game.getSize().canvasHeight + 'px';
   cvPartsContainer.className = 'show';
-});
-
-window.addEventListener('load', function () {
-  openingModal.style.width = game.getSize().canvasWidth + 'px';
-  openingModal.style.height = game.getSize().canvasHeight + 'px';
 });
 
 startGameButton.addEventListener('click', function () {
@@ -96,17 +129,17 @@ function getImageSize (element) {
   }
 };
 
-function drawImg (config) {
-  var image = new Image();
-  image.src = game.getImage().config.src;
-  this.context.drawImage(image, this.x, this.y);
-}
+// function drawImg (config) {
+//   var image = new Image();
+//   image.src = game.getImage().config.src;
+//   this.context.drawImage(image, this.x, this.y);
+// }
 
-function insertAsset (asset) {
-  var asset = new Image();
-  asset.src = config.asset;
-  this.context.drawImage(asset, 0, config.canvasHeight - getImageSize(asset).height);
-};
+// function insertAsset (asset) {
+//   var asset = new Image();
+//   asset.src = config.asset;
+//   this.context.drawImage(asset, 0, config.canvasHeight - getImageSize(asset).height);
+// };
 
 // Créer une modal
 function showEndMessage (config) {

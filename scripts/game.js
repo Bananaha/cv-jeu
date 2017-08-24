@@ -19,28 +19,6 @@ function Game () {
   var BOSS_MAXY = canvasWidth;
   var SPEED = 20;
 
-  var IMG = {
-    ennemyBlue: './assets/ennemy-blue.png',
-    ennemyBrown: './assets/ennemy-brown.png',
-    ennemyPink: './assets/ennemy-pink.png',
-    ennemyYellow: './assets/ennemy-yellow.png',
-    forestBack: './assets/forest-back.png',
-    forestFront: './assets/forest-front.png',
-    heartFull: './assets/heart-full.png',
-    heartEmpty: './assets/heart-empty.png',
-    hillFront: './assets/hill-front.png',
-    hillBack: './assets/hill-back.png',
-    mountainBack: './assets/mountain-back.png',
-    mountainFront: './assets/mountain-front.png',
-    mountainMiddle: './assets/mountain-middle.png',
-    shotCircle: './assets/shot-circle.png',
-    shotRainbow: './assets/shot-rainbow.png',
-    unicorn: './assets/unicorn.png',
-    unicornRainbow: './assets/unicorn-rainbow.png',
-    restart: './assets/return.png',
-    information: './assets/information.png'
-  };
-
   var background = new Background({
     canvasWidth: canvasWidth,
     canvasHeight: canvasHeight,
@@ -207,16 +185,16 @@ function Game () {
           rank: gameStage,
           onDead(gameStage) {
             switch (gameStage) {
-              case 1:
+              case 2:
                 console.log('compétences');
                 break;
-              case 2:
+              case 3:
                 console.log('formations');
                 break;
-              case 3:
+              case 4:
                 console.log('expériences');
                 break;
-              case 4:
+              case 5:
                 console.log('likes');
                 break;
             }
@@ -232,6 +210,7 @@ function Game () {
           newScore: newScore
         }));
         gameStage++;
+        console.log(gameStage);
         createBoss = true;
       }
     }
