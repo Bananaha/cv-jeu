@@ -1,17 +1,17 @@
 /*#FF0013, #FF9713, #FFE213, #2DCE13, #47C6FF, #5900AB;*/
 
-#end-message-modal-container {
+#ending-modal-container {
   position: absolute;
-  background: rgba(0, 0, 0, 0);
+  background: transparent;
+  color: #f0f0f0;
   top: 80px;
   justify-content: space-around;
   align-items: center;
   transition: all 2s ease;
 }
 
-#end-message-modal {
-  background: #5900AB;
-  color: #F2F2F2;
+#ending-modal {
+  color: #f0f0f0;
   width: 400px;
   height: 200px;
   border-radius: 2px;
@@ -33,10 +33,10 @@
 }
 
 #button-container button {
-  background: #5900AB;
-  color: #F2F2F2;
+  background: transparent;
+  color: #f0f0f0;
 }
 
 #button-container button:hover {
-  color: #FF0013;
+  color: #5900AB;
 }

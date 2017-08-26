@@ -1,18 +1,12 @@
 var game;
 var colors = {
-  // primary: '#f9dc19',
-  primary: 'rgba(255, 255, 255, 0)',
-  transparency: 'rgba(255, 255, 255, 0.58)',
   ammo: '#e74444',
-  // ammo: 'rgba(255, 255, 255, 0)',
-  // ennemy: '#23a3db',
   boss: '#ddf525',
-  ennemy: 'rgba(255, 255, 255, 0)',
   text: '#505050'
 };
 var pressedKeys = {};
 var partsUnlocked = [];
-
+var index = 0;
 var IMG = {
   ennemyBlue: './assets/ennemy-blue.png',
   ennemyBrown: './assets/ennemy-brown.png',
@@ -35,7 +29,17 @@ var IMG = {
   information: './assets/information.png'
 };
 var gameImages = {};
-
+var textMessage = {
+  lvl0: 'Oh non...il reste tant à découvrir, rejouer!',
+  lvl1: 'Bravo, vous avez débloqué les compétences! Rejouer pour débloquer d\'avantage !',
+  lvl2: 'Woooh, vous avez débloqué les compétences et les diplômes, vous êtes sur la bonne voie. Rejouer !',
+  lvl3: 'Finger in the nose ! Compétences, Diplômes et Expériences..plus qu\'un seul niveau.',
+  lvl4: 'C\'est gagné, c\'est gagné, you did it yeah!'
+};
+var skillsPart = document.getElementById('rub-skills');
+var degreesPart = document.getElementById('rub-degrees');
+var experiencesPart = document.getElementById('rub-experiences');
+var likesPart = document.getElementById('rub-likes');
 var imagesCount = Object.keys(IMG).length;
 var loadedImagesCount = 0;
 
@@ -59,8 +63,8 @@ var experiencesPart = document.getElementById('rub-experiences');
 var likesPart = document.getElementById('rub-likes');
 // Modals
 var openingModal = document.getElementById('opening-modal');
-var endMessageModalContainer = document.getElementById('end-message-modal-container');
-var endMessageModal = document.getElementById('end-message-modal');
+var endingModalContainer = document.getElementById('ending-modal-container');
+var endingModal = document.getElementById('ending-modal');
 // Boutons des modals
 var startGameButton = document.getElementById('start-game-button');
 var skipGameButton = document.getElementById('skip-game-button');
@@ -84,28 +88,59 @@ window.addEventListener('keyup', function (event) {
 
 seePartsUnlocked.addEventListener('click', function (event) {
   event.preventDefault();
-  hideEndModal();
-  var gallery = document.getElementById('gallery');
-  gallery.style.width = game.getSize().canvasWidth + 'px';
-  gallery.style.height = game.getSize().canvasHeight + 'px';
-  gallery.className = 'show';
+  translateY(endingModal);
+  setTimeout(function () {
+    endingModalContainer.className = 'hide';
+    removeAttr(endingModal, 'style');
+    var gallery = document.getElementById('gallery');
+    gallery.style.width = game.getSize().canvasWidth + 'px';
+    gallery.style.height = game.getSize().canvasHeight + 'px';
+    gallery.className = 'flex';
+  }, 1000);
 
   if (partsUnlocked.length === 0) {
     // AJOUTER UN MESSAGE !!!!!!!!!!!!!!!!!!!!!!!
     console.log('coucou');
   } else {
-    partsUnlocked[0].className = 'show';
-    console.log('toto');
+    partsUnlocked[index].className = 'show';
+    console.log(index);
   }
-  if(partsUnlocked.length > 1) {
+  if (partsUnlocked.length > 1) {
     rightArrow.classList.add('show');
     rightArrow.classList.remove('hide');
   }
 });
 
 rightArrow.addEventListener('click', function () {
-  if()
+  partsUnlocked[index].className = 'hide';
+  if (index < partsUnlocked.length - 1) {
+    index++;
+  } else {
+    index = 0;
+  }
+  console.log(index);
+  partsUnlocked[index].className = 'show';
+  if (index > 0) {
+    leftArrow.classList.add('show');
+    leftArrow.classList.remove('hide');
+  }
 });
+
+leftArrow.addEventListener('click', function () {
+  partsUnlocked[index].className = 'hide';
+  if (index >= 1) {
+    index--;
+  } else {
+    index = partsUnlocked.length - 1;
+  }
+  console.log(index);
+  partsUnlocked[index].className = 'show';
+  if (index > 0) {
+    leftArrow.classList.add('show');
+    leftArrow.classList.remove('hide');
+  }
+});
+
 startGameButton.addEventListener('click', function () {
   translateY(startGameButton);
   translateY(skipGameButton);
@@ -126,7 +161,12 @@ skipGameButton.addEventListener('click', function (event) {
 // Relance une partie
 restartButton.addEventListener('click', function (event) {
   event.preventDefault();
-  hideEndModal();
+  translateY(endingModal);
+  setTimeout(function () {
+    endingModalContainer.className = 'hide';
+    removeAttr(endingModal, 'style');
+    game.start();
+  }, 1000);
 });
 
 // Génère une position X aléatoire
@@ -151,24 +191,11 @@ function getImageSize (element) {
 
 // Créer une modal
 function showEndModal (config) {
-  var textMessage = {
-    win: 'Awesome ! Vous avez réussi',
-    lose: 'Oh non....il reste tant à découvrir !'
-  };
   var scoreParagraph = document.getElementById('score');
   var messageParagraph = document.getElementById('message');
-  endMessageModalContainer.style.width = config.canvasWidth + 'px';
-  endMessageModalContainer.style.height = config.canvasHeight + 'px';
+  endingModalContainer.style.width = config.canvasWidth + 'px';
+  endingModalContainer.style.height = config.canvasHeight + 'px';
   scoreParagraph.innerHTML = 'Score: ' + config.newScore.score;
-  messageParagraph.innerHTML = textMessage[config.textKey];
-  endMessageModalContainer.className = 'show';
+  messageParagraph.innerHTML = config.text;
+  endingModalContainer.className = 'flex';
 };
-
-function hideEndModal () {
-  translateY(endMessageModal);
-  setTimeout(function () {
-    endMessageModalContainer.className = 'hide';
-    removeAttr(endMessageModal, 'style');
-    game.start();
-  }, 1000);
-}

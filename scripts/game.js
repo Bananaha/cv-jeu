@@ -15,6 +15,7 @@ function Game () {
   var createBoss;
   var newScore;
   var started = false;
+  var result = textMessage.lvl0;
 
   var BOSS_MAXY = canvasWidth;
   var SPEED = 20;
@@ -156,6 +157,7 @@ function Game () {
       // dès que le joueur est éliminé, les munitions sont supprimées.
       allAmmos.player = [];
     }
+    console.log(result);
     // le boss apparait après x ennemis générés
     if (ennemiesCounter === 5 || ennemiesCounter === 10 || ennemiesCounter === 15 || ennemiesCounter === 20) {
       // on fait apparaitre le boss
@@ -168,7 +170,6 @@ function Game () {
         } else if (ennemiesCounter >= 10) {
           shotSpeed = 300;
         }
-
         bosses.push(new Boss({
           shotSpeed: shotSpeed,
           rank: gameStage,
@@ -176,22 +177,22 @@ function Game () {
             switch (gameStage) {
               case 1:
                 partsUnlocked.push(skillsPart);
-                console.log('Partie Compétences débloquée');
+                result = textMessage.lvl1;
                 break;
               case 2:
                 partsUnlocked.push(degreesPart);
-                console.log('Partie Diplômes débloquée');
+                result = textMessage.lvl2;
                 break;
               case 3:
                 partsUnlocked.push(experiencesPart);
-                console.log('Partie Expériences débloquée');
+                result = textMessage.lvl3;
                 break;
               case 4:
                 partsUnlocked.push(likesPart);
-                console.log('Parties Intérêts débloquée');
+                result = textMessage.lvl4;
                 break;
               default:
-                console.log('coucou');
+                result = textMessage.lvl0;
                 break;
             }
           },
@@ -230,24 +231,14 @@ function Game () {
     drawLives(IMG.heartFull, 20);
 
     if (player.life <= 0 || (gameStage === 5 && bosses.length === 0)) {
-      // Modal en cas de partie perdue
-      if (player.life <= 0) {
-        showEndModal({
-          canvasWidth: canvasWidth,
-          canvasHeight: canvasHeight,
-          newScore: newScore,
-          textKey: 'lose'
-        });
-      } else {
-        // Modal lorsque le jeu est gagné
-        showEndModal({
-          canvasWidth: canvasWidth,
-          canvasHeight: canvasHeight,
-          newScore: newScore,
-          textKey: 'win'
-        });
-      }
+      showEndModal({
+        canvasWidth: canvasWidth,
+        canvasHeight: canvasHeight,
+        newScore: newScore,
+        text: result
+      });
       started = false;
+      console.log('game stop');
     }
     window.requestAnimationFrame(draw);
   };
@@ -264,11 +255,14 @@ function Game () {
     gameStage = 1;
     createBoss = undefined;
 
+    index = 0;
+    partsUnlocked = [];
     newScore = {
-      score: 2900
+      score: 0
     };
     player = createPlayer();
     started = true;
+    console.log('game start');
     draw();
   }
   draw();

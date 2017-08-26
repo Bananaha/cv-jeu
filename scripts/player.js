@@ -13,9 +13,7 @@ function Player (config) {
     var image = new Image();
     image.src = config.image;
     this.context.beginPath();
-    this.context.fillStyle = colors.primary;
     this.context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
-    this.context.fill();
     this.context.closePath();
     this.context.drawImage(image, this.x - getImageSize(image).width / 2, this.y - getImageSize(image).height / 2);
     checkEvents.apply(this);

@@ -1,22 +1,24 @@
 #opening-modal {
   position: absolute;
   top: 80px;
-  background: rgba(0, 0, 0, 0);
-  justify-content: space-around;
+  background: transparent;
+  justify-content: center;
   align-items: center;
   overflow: hidden;
 }
 
 #opening-modal button {
   width: 200px;
-  background: #F2F2F2;
-  color: #5900AB;
-  border-radius: 2px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  background: transparent;
+  color: #f0f0f0;
   font-size: 20px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Poppins', sans-serif;
+}
+
+#opening-modal button + button {
+  border-left: 2px solid #f0f0f0;
 }
 
 #opening-modal button:hover {
-  color: #FF0013;
+  color: #5900AB;
 }

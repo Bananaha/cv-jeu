@@ -1,6 +1,0 @@
-{
-  "competences-front": ["HTLM5", "CSS3","Less/Sass", "Pug", "Bootstrap", "Javascript", "jQuery"],
-  "competences-back": ["Angular", "NodeJS", "MongoDB", "ExpressJS", "Gulp", "Meteor", "Websockets"],
-  "transverses": ["Gestion de projet", "Management", "Formation", "Audit"],
-  "logiciels": ["Photoshop", "Illustrator", "Business Object", "Pack Office"]
-}

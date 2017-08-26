@@ -36,11 +36,11 @@ function Background (config) {
   };
 
   var gradientBlue = this.context.createLinearGradient(0, 0, 0, config.canvasHeight);
-  gradientBlue.addColorStop(0, 'rgb(81, 137, 186)');
-  gradientBlue.addColorStop(1, 'rgb(60, 60, 60)')
+  gradientBlue.addColorStop(0, '#5189ba');
+  gradientBlue.addColorStop(1, '#3c3c3c')
 
   var gradientPink = this.context.createLinearGradient(0, config.canvasHeight - pinkBackgroundHeight, 0, config.canvasHeight - pinkBackgroundHeight - pinkGradientBackgroundHeight);
-  gradientPink.addColorStop(0, 'rgb(137, 80, 173)');
+  gradientPink.addColorStop(0, '#8950ad');
   gradientPink.addColorStop(1, 'rgba(137, 80, 173, 0)')
 
   var backgroundImages = {};
@@ -62,7 +62,7 @@ function Background (config) {
     this.context.fillStyle = gradientBlue;
     this.context.fillRect(0, 0, config.canvasWidth, config.canvasHeight);
 
-    this.context.fillStyle = 'rgb(137, 80, 173)';
+    this.context.fillStyle = '#8950ad';
     this.context.fillRect(0, config.canvasHeight - pinkBackgroundHeight, config.canvasWidth, pinkBackgroundHeight);
 
     this.context.fillStyle = gradientPink;
