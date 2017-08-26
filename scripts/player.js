@@ -22,7 +22,7 @@ function Player (config) {
   };
 
   // Vitesse de déplacement
-  this.speed = config.SPEED;
+  this.speed = config.speed;
   // Gestion des déplacements latéraux
   function goUp () {
     if (this.y <= 0 + this.radius) {

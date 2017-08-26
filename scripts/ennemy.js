@@ -21,7 +21,7 @@ function Ennemy (speedCoeff, config) {
   this.originX = -this.radius;
   this.x = this.originX;
   this.y = config.random(this.radius, config.canvasHeight);
-  this.speed = config.SPEED / (200 / speedCoeff);
+  this.speed = config.speed / (200 / speedCoeff);
   // Défini si la forme s'affiche
   this.life = 1;
   this.creationDate = Date.now();

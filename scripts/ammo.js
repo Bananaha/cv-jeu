@@ -9,7 +9,7 @@ function Ammo (x, y, sens, config) {
   this.originX = x;
   this.x = this.originX;
   this.y = y
-  this.speed = config.SPEED / 100;
+  this.speed = config.speed / 100;
   // Défini si la forme s'affiche
   this.life = 1;
   this.creationDate = Date.now();

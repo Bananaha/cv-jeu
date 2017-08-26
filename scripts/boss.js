@@ -6,7 +6,7 @@ var Boss = function (config) {
   this.originX = config.canvasWidth + this.radius;
   this.x = this.originX;
   this.y = config.canvasHeight / 2;
-  this.speed = config.SPEED / 200;
+  this.speed = config.speed / 200;
   // Défini si la forme s'affiche
   this.life = 10;
   this.creationDate = Date.now();

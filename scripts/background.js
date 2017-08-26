@@ -68,7 +68,7 @@ function Background (config) {
     this.context.fillStyle = gradientPink;
     this.context.fillRect(0, config.canvasHeight - pinkBackgroundHeight - pinkGradientBackgroundHeight, config.canvasWidth, pinkGradientBackgroundHeight);
 
-    // Background assets
+    // Background assets et parallax
     function repeatImage (asset) {
       for (var i = 0; i < asset.occurrence; i++ ) {
         var x = asset.x + asset.width * i;

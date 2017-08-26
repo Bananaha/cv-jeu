@@ -23,15 +23,6 @@ function Game () {
     canvasWidth: canvasWidth,
     canvasHeight: canvasHeight,
     context: ctx,
-    assets: {
-      mountainBack: IMG.mountainBack,
-      mountainMiddle: IMG.mountainMiddle,
-      mountainFront: IMG.mountainFront,
-      forestFront: IMG.forestFront,
-      forestBack: IMG.forestBack,
-      hillBack: IMG.hillBack,
-      hillFront: IMG.hillFront
-    }
   });
 
   this.getSize = function () {
@@ -49,10 +40,8 @@ function Game () {
   };
   // Affiche les vies du joueur
   function drawLives (source, size) {
-    var IMG = new Image();
-    IMG.src = source;
     for (var i = 0; i < player.life; i++) {
-      ctx.drawImage(IMG, 30 * i + 10, 45, size, size);
+      ctx.drawImage(gameImages.heartFull, 30 * i + 10, 45, size, size);
     };
   };
 
@@ -82,7 +71,7 @@ function Game () {
       ctx: ctx,
       canvasHeight: canvasHeight,
       canvasWidth: canvasWidth,
-      SPEED: SPEED,
+      speed: SPEED / 2,
       allAmmos: allAmmos,
       launchAmmo: launchAmmo,
       image: IMG.unicorn
@@ -98,7 +87,7 @@ function Game () {
         ctx: ctx,
         canvasHeight: canvasHeight,
         canvasWidth: canvasWidth,
-        SPEED: SPEED,
+        speed: SPEED,
         random: random,
         newScore: newScore,
         image: {
@@ -117,7 +106,7 @@ function Game () {
       date = Date.now();
       array.push(new Ammo(x, y, direction, {
         ctx: ctx,
-        SPEED: SPEED,
+        speed: SPEED,
         shotCircle: IMG.shotCircle,
         shotRainbow: IMG.shotRainbow,
         parent: shooter
@@ -185,24 +174,31 @@ function Game () {
           rank: gameStage,
           onDead(gameStage) {
             switch (gameStage) {
+              case 1:
+                partsUnlocked.push(skillsPart);
+                console.log('Partie Compétences débloquée');
+                break;
               case 2:
-                console.log('compétences');
+                partsUnlocked.push(degreesPart);
+                console.log('Partie Diplômes débloquée');
                 break;
               case 3:
-                console.log('formations');
+                partsUnlocked.push(experiencesPart);
+                console.log('Partie Expériences débloquée');
                 break;
               case 4:
-                console.log('expériences');
+                partsUnlocked.push(likesPart);
+                console.log('Parties Intérêts débloquée');
                 break;
-              case 5:
-                console.log('likes');
+              default:
+                console.log('coucou');
                 break;
             }
           },
           ctx: ctx,
           canvasHeight: canvasHeight,
           canvasWidth: canvasWidth,
-          SPEED: SPEED,
+          speed: SPEED,
           BOSS_MAXY: BOSS_MAXY,
           allAmmos: allAmmos,
           random: random,
@@ -233,26 +229,24 @@ function Game () {
     drawText(10, 30, 'Score: ' + newScore.score, 16, colors.text);
     drawLives(IMG.heartFull, 20);
 
-    // Modal en cas de partie perdue
-    if (player.life <= 0) {
-      showEndMessage({
-        canvasWidth: canvasWidth,
-        canvasHeight: canvasHeight,
-        newScore: newScore,
-        textKey: 'lose'
-      });
-    }
-    // Modal lorsque le jeu est gagné
-    if (gameStage === 5 && bosses.length === 0) {
-      showEndMessage({
-        canvasWidth: canvasWidth,
-        canvasHeight: canvasHeight,
-        newScore: newScore,
-        textKey: 'win'
-      });
-    }
-
     if (player.life <= 0 || (gameStage === 5 && bosses.length === 0)) {
+      // Modal en cas de partie perdue
+      if (player.life <= 0) {
+        showEndModal({
+          canvasWidth: canvasWidth,
+          canvasHeight: canvasHeight,
+          newScore: newScore,
+          textKey: 'lose'
+        });
+      } else {
+        // Modal lorsque le jeu est gagné
+        showEndModal({
+          canvasWidth: canvasWidth,
+          canvasHeight: canvasHeight,
+          newScore: newScore,
+          textKey: 'win'
+        });
+      }
       started = false;
     }
     window.requestAnimationFrame(draw);

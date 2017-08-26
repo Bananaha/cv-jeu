@@ -1,0 +1,19 @@
+#gallery {
+  position: absolute;
+  top: 80px;
+  background: rgba(0, 0, 0, 0);
+  justify-content: space-around;
+  align-items: center;
+  overflow: hidden;
+}
+
+#gallery-content {
+  flex: 1;
+}
+
+#gallery-arrow-left {
+  padding-left: 10px;
+}
+#gallery-arrow-right {
+  padding-right: 10px;
+}

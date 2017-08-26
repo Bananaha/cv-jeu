@@ -11,6 +11,7 @@ var colors = {
   text: '#505050'
 };
 var pressedKeys = {};
+var partsUnlocked = [];
 
 var IMG = {
   ennemyBlue: './assets/ennemy-blue.png',
@@ -33,8 +34,7 @@ var IMG = {
   restart: './assets/return.png',
   information: './assets/information.png'
 };
-
-this.gameImages = {};
+var gameImages = {};
 
 var imagesCount = Object.keys(IMG).length;
 var loadedImagesCount = 0;
@@ -42,7 +42,7 @@ var loadedImagesCount = 0;
 for (var key in IMG) {
   var image = new Image();
   image.src = IMG[key];
-  this.gameImages[key] = image;
+  gameImages[key] = image;
   image.onload = function () {
     loadedImagesCount++;
     if (loadedImagesCount === imagesCount) {
@@ -53,16 +53,23 @@ for (var key in IMG) {
   }
 }
 
+var skillsPart = document.getElementById('rub-skills');
+var degreesPart = document.getElementById('rub-degrees');
+var experiencesPart = document.getElementById('rub-experiences');
+var likesPart = document.getElementById('rub-likes');
 // Modals
 var openingModal = document.getElementById('opening-modal');
 var endMessageModalContainer = document.getElementById('end-message-modal-container');
+var endMessageModal = document.getElementById('end-message-modal');
 // Boutons des modals
 var startGameButton = document.getElementById('start-game-button');
 var skipGameButton = document.getElementById('skip-game-button');
 var restartButton = document.getElementById('restart');
-var cvPartsUnlockedButton = document.getElementById('cv-parts-unlocked');
-var showCvButton = document.getElementById('show-cv');
-var contactButton = document.getElementById('contact');
+var seePartsUnlocked = document.getElementById('parts-unlocked');
+var rightArrow = document.getElementById('gallery-right-arrow');
+var leftArrow = document.getElementById('gallery-left-arrow')
+var showCv = document.getElementById('show-cv');
+var contact = document.getElementById('contact');
 
 // Event listeners sur les touches du clavier
 window.addEventListener('keydown', function (event) {
@@ -75,14 +82,30 @@ window.addEventListener('keyup', function (event) {
   pressedKeys[event.key] = false;
 });
 
-cvPartsUnlockedButton.addEventListener('click', function (event) {
+seePartsUnlocked.addEventListener('click', function (event) {
   event.preventDefault();
-  var cvPartsContainer = document.getElementById('rub-win');
-  cvPartsContainer.style.width = game.getSize().canvasWidth + 'px';
-  cvPartsContainer.style.height = game.getSize().canvasHeight + 'px';
-  cvPartsContainer.className = 'show';
+  hideEndModal();
+  var gallery = document.getElementById('gallery');
+  gallery.style.width = game.getSize().canvasWidth + 'px';
+  gallery.style.height = game.getSize().canvasHeight + 'px';
+  gallery.className = 'show';
+
+  if (partsUnlocked.length === 0) {
+    // AJOUTER UN MESSAGE !!!!!!!!!!!!!!!!!!!!!!!
+    console.log('coucou');
+  } else {
+    partsUnlocked[0].className = 'show';
+    console.log('toto');
+  }
+  if(partsUnlocked.length > 1) {
+    rightArrow.classList.add('show');
+    rightArrow.classList.remove('hide');
+  }
 });
 
+rightArrow.addEventListener('click', function () {
+  if()
+});
 startGameButton.addEventListener('click', function () {
   translateY(startGameButton);
   translateY(skipGameButton);
@@ -103,13 +126,7 @@ skipGameButton.addEventListener('click', function (event) {
 // Relance une partie
 restartButton.addEventListener('click', function (event) {
   event.preventDefault();
-  var endMessageModal = document.getElementById('end-message-modal');
-  translateY(endMessageModal);
-  setTimeout(function () {
-    endMessageModalContainer.className = 'hide';
-    removeAttr(endMessageModal, 'style');
-    game.start();
-  }, 1000);
+  hideEndModal();
 });
 
 // Génère une position X aléatoire
@@ -133,7 +150,7 @@ function getImageSize (element) {
 };
 
 // Créer une modal
-function showEndMessage (config) {
+function showEndModal (config) {
   var textMessage = {
     win: 'Awesome ! Vous avez réussi',
     lose: 'Oh non....il reste tant à découvrir !'
@@ -146,3 +163,12 @@ function showEndMessage (config) {
   messageParagraph.innerHTML = textMessage[config.textKey];
   endMessageModalContainer.className = 'show';
 };
+
+function hideEndModal () {
+  translateY(endMessageModal);
+  setTimeout(function () {
+    endMessageModalContainer.className = 'hide';
+    removeAttr(endMessageModal, 'style');
+    game.start();
+  }, 1000);
+}
