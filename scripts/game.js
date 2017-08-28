@@ -69,7 +69,7 @@ function Game () {
   // Générer le joueur
   function createPlayer () {
     return new Player({
-      ctx: ctx,
+      context: ctx,
       canvasHeight: canvasHeight,
       canvasWidth: canvasWidth,
       speed: SPEED / 2,
@@ -157,7 +157,6 @@ function Game () {
       // dès que le joueur est éliminé, les munitions sont supprimées.
       allAmmos.player = [];
     }
-    console.log(result);
     // le boss apparait après x ennemis générés
     if (ennemiesCounter === 5 || ennemiesCounter === 10 || ennemiesCounter === 15 || ennemiesCounter === 20) {
       // on fait apparaitre le boss
@@ -238,7 +237,6 @@ function Game () {
         text: result
       });
       started = false;
-      console.log('game stop');
     }
     window.requestAnimationFrame(draw);
   };
@@ -262,8 +260,7 @@ function Game () {
     };
     player = createPlayer();
     started = true;
-    console.log('game start');
-    draw();
-  }
+  };
+
   draw();
 };

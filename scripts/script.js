@@ -7,6 +7,14 @@ var colors = {
 var pressedKeys = {};
 var partsUnlocked = [];
 var index = 0;
+var textMessage = {
+  lvl0: 'Oh non...il reste tant à découvrir, rejouez!',
+  lvl1: 'Bravo, vous avez débloqué les compétences! Rejouez pour débloquer d\'avantage !',
+  lvl2: 'Woooh, vous avez débloqué les compétences et les diplômes, vous êtes sur la bonne voie. Rejouez !',
+  lvl3: 'Finger in the nose ! Compétences, Diplômes et Expériences..plus qu\'un seul niveau.',
+  lvl4: 'C\'est gagné, c\'est gagné, you did it yeah!'
+};
+
 var IMG = {
   ennemyBlue: './assets/ennemy-blue.png',
   ennemyBrown: './assets/ennemy-brown.png',
@@ -24,22 +32,9 @@ var IMG = {
   shotCircle: './assets/shot-circle.png',
   shotRainbow: './assets/shot-rainbow.png',
   unicorn: './assets/unicorn.png',
-  unicornRainbow: './assets/unicorn-rainbow.png',
-  restart: './assets/return.png',
-  information: './assets/information.png'
+  unicornRainbow: './assets/unicorn-rainbow.png'
 };
 var gameImages = {};
-var textMessage = {
-  lvl0: 'Oh non...il reste tant à découvrir, rejouer!',
-  lvl1: 'Bravo, vous avez débloqué les compétences! Rejouer pour débloquer d\'avantage !',
-  lvl2: 'Woooh, vous avez débloqué les compétences et les diplômes, vous êtes sur la bonne voie. Rejouer !',
-  lvl3: 'Finger in the nose ! Compétences, Diplômes et Expériences..plus qu\'un seul niveau.',
-  lvl4: 'C\'est gagné, c\'est gagné, you did it yeah!'
-};
-var skillsPart = document.getElementById('rub-skills');
-var degreesPart = document.getElementById('rub-degrees');
-var experiencesPart = document.getElementById('rub-experiences');
-var likesPart = document.getElementById('rub-likes');
 var imagesCount = Object.keys(IMG).length;
 var loadedImagesCount = 0;
 
@@ -61,6 +56,8 @@ var skillsPart = document.getElementById('rub-skills');
 var degreesPart = document.getElementById('rub-degrees');
 var experiencesPart = document.getElementById('rub-experiences');
 var likesPart = document.getElementById('rub-likes');
+var partIndex = document.getElementById("part-index");
+
 // Modals
 var openingModal = document.getElementById('opening-modal');
 var endingModalContainer = document.getElementById('ending-modal-container');
@@ -68,21 +65,25 @@ var endingModal = document.getElementById('ending-modal');
 // Boutons des modals
 var startGameButton = document.getElementById('start-game-button');
 var skipGameButton = document.getElementById('skip-game-button');
-var restartButton = document.getElementById('restart');
+var restartInEnding = document.getElementById('restart-in-ending');
+var restartInGallery = document.getElementById('restart-in-gallery');
 var seePartsUnlocked = document.getElementById('parts-unlocked');
 var rightArrow = document.getElementById('gallery-right-arrow');
 var leftArrow = document.getElementById('gallery-left-arrow')
-var showCv = document.getElementById('show-cv');
-var contact = document.getElementById('contact');
+var gallery = document.getElementById('gallery');
 
 // Event listeners sur les touches du clavier
 window.addEventListener('keydown', function (event) {
-  event.preventDefault();
+  if (event.key === 'ArrowUp' || event.key === 'ArrowDown' || event.key === 'Shift') {
+    event.preventDefault();
+  }
   pressedKeys[event.key] = true;
 });
 
 window.addEventListener('keyup', function (event) {
-  event.preventDefault();
+  if (event.key === 'ArrowUp' || event.key === 'ArrowDown' || event.key === 'Shift') {
+    event.preventDefault();
+  }
   pressedKeys[event.key] = false;
 });
 
@@ -92,7 +93,6 @@ seePartsUnlocked.addEventListener('click', function (event) {
   setTimeout(function () {
     endingModalContainer.className = 'hide';
     removeAttr(endingModal, 'style');
-    var gallery = document.getElementById('gallery');
     gallery.style.width = game.getSize().canvasWidth + 'px';
     gallery.style.height = game.getSize().canvasHeight + 'px';
     gallery.className = 'flex';
@@ -103,12 +103,12 @@ seePartsUnlocked.addEventListener('click', function (event) {
     console.log('coucou');
   } else {
     partsUnlocked[index].className = 'show';
-    console.log(index);
   }
   if (partsUnlocked.length > 1) {
     rightArrow.classList.add('show');
     rightArrow.classList.remove('hide');
   }
+  partIndex.innerHTML = index + 1 + " / " + partsUnlocked.length;
 });
 
 rightArrow.addEventListener('click', function () {
@@ -118,12 +118,12 @@ rightArrow.addEventListener('click', function () {
   } else {
     index = 0;
   }
-  console.log(index);
   partsUnlocked[index].className = 'show';
   if (index > 0) {
     leftArrow.classList.add('show');
     leftArrow.classList.remove('hide');
   }
+  partIndex.innerHTML = index + 1 + " / " + partsUnlocked.length;
 });
 
 leftArrow.addEventListener('click', function () {
@@ -133,12 +133,12 @@ leftArrow.addEventListener('click', function () {
   } else {
     index = partsUnlocked.length - 1;
   }
-  console.log(index);
   partsUnlocked[index].className = 'show';
   if (index > 0) {
     leftArrow.classList.add('show');
     leftArrow.classList.remove('hide');
   }
+  partIndex.innerHTML = index + 1 + " / " + partsUnlocked.length;
 });
 
 startGameButton.addEventListener('click', function () {
@@ -159,12 +159,23 @@ skipGameButton.addEventListener('click', function (event) {
 });
 
 // Relance une partie
-restartButton.addEventListener('click', function (event) {
+// depuis la modal de fin de jeu
+restartInEnding.addEventListener('click', function (event) {
   event.preventDefault();
   translateY(endingModal);
-  setTimeout(function () {
-    endingModalContainer.className = 'hide';
-    removeAttr(endingModal, 'style');
+  setTimeout(function() {
+    endingModalContainer.className = "hide";
+    removeAttr(endingModal, "style");
+    game.start();
+  }, 1000);
+});
+// depuis l'écran des parties du cv remportées
+restartInGallery.addEventListener("click", function(event) {
+  event.preventDefault();
+  translateY(gallery);
+  setTimeout(function() {
+    gallery.className = "hide";
+    removeAttr(endingModal, "style");
     game.start();
   }, 1000);
 });

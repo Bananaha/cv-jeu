@@ -8,11 +8,12 @@
 }
 
 #opening-modal button {
-  width: 200px;
   background: transparent;
   color: #f0f0f0;
   font-size: 20px;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto',
+  sans-serif;
+  padding: 0 30px;
 }
 
 #opening-modal button + button {

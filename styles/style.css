@@ -3,7 +3,8 @@ body {
   background-color: #F2F2F2;
   background: linear-gradient(#5189ba, #4F2C64); /* Standard syntax */
   color: #f0f0f0;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto',
+  sans-serif;
   transition: all 2s ease;
 }
 
@@ -54,13 +55,11 @@ button i {
 
 p, span {
   height: 50px;
-  line-height: 50px;
   margin: 5px;
 }
 
 ul {
   display: inline;
-  min-width: 200px;
   flex: 1;
 }
 
