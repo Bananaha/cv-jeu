@@ -61,6 +61,8 @@ var endingModal = document.getElementById('ending-modal');
 var restartInEnding = document.getElementById('restart-in-ending');
 var seePartsUnlocked = document.getElementById('parts-unlocked');
 
+var inGameMessage = document.getElementById('in-game-message');
+
 var gallery = document.getElementById('gallery');
 var rightArrow = document.getElementById('gallery-right-arrow');
 var leftArrow = document.getElementById('gallery-left-arrow')
@@ -98,12 +100,8 @@ seePartsUnlocked.addEventListener('click', function (event) {
     gallery.className = 'flex';
   }, 1000);
 
-  if (partsUnlocked.length === 0) {
-    // AJOUTER UN MESSAGE !!!!!!!!!!!!!!!!!!!!!!!
-    console.log('coucou');
-  } else {
-    partsUnlocked[index].className = 'show';
-  }
+  partsUnlocked[index].className = 'show';
+
   if (partsUnlocked.length > 1) {
     rightArrow.classList.add('show');
     rightArrow.classList.remove('hide');
@@ -156,6 +154,7 @@ skipGameButton.addEventListener('click', function (event) {
   event.preventDefault();
   translateY(startGameButton);
   translateY(skipGameButton);
+
 });
 
 // Relance une partie
@@ -170,15 +169,16 @@ restartInEnding.addEventListener('click', function (event) {
   }, 1000);
 });
 // depuis l'écran des parties du cv remportées
-restartInGallery.addEventListener('click', function(event) {
+restartInGallery.addEventListener('click', function (event) {
   event.preventDefault();
   translateY(gallery);
-  setTimeout(function() {
+  setTimeout(function () {
     gallery.className = 'hide';
     removeAttr(gallery, 'style');
     game.start();
   }, 1000);
 });
+
 
 // Génère une position X aléatoire
 function random (min, max) {
