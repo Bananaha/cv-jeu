@@ -1,20 +1,12 @@
 // Contructeur d'ennemis
 function Ennemy (speedCoeff, config) {
-  var ennemyImage;
-  switch (config.gameStage) {
-    case 1:
-      ennemyImage = gameImages.ennemyBlue;
-      break;
-    case 2:
-      ennemyImage = gameImages.ennemyPink;
-      break;
-    case 3:
-      ennemyImage = gameImages.ennemyYellow;
-      break;
-    case 4:
-      ennemyImage = gameImages.ennemyBrown;
-      break;
-  }
+  var ENNEMY_IMAGE = [
+    gameImages.ennemyBlue,
+    gameImages.ennemyPink,
+    gameImages.ennemyYellow, 
+    gameImages.ennemyBrown
+    ];
+  var ennemyImage = ENNEMY_IMAGE[config.gameStage - 1];
   this.context = config.ctx;
   this.radius = 50;
   // Position x aléatoire dans le canvas

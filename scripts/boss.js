@@ -7,7 +7,7 @@ var Boss = function (config) {
     gameImages.bossYellow, 
     gameImages.bossBrown
     ];
-  var imageBoss = BOSS_IMAGE[gameStage];
+  var imageBoss = BOSS_IMAGE[config.gameStage - 1];
   this.context = config.ctx;
   this.radius = 300;
   this.originX = config.canvasWidth + this.radius;
