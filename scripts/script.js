@@ -52,25 +52,25 @@ for (var key in IMG) {
   }
 }
 
+var openingModal = document.getElementById('opening-modal');
+var startGameButton = document.getElementById('start-game-button');
+var skipGameButton = document.getElementById('skip-game-button');
+
+var endingModalContainer = document.getElementById('ending-modal-container');
+var endingModal = document.getElementById('ending-modal');
+var restartInEnding = document.getElementById('restart-in-ending');
+var seePartsUnlocked = document.getElementById('parts-unlocked');
+
+var gallery = document.getElementById('gallery');
+var rightArrow = document.getElementById('gallery-right-arrow');
+var leftArrow = document.getElementById('gallery-left-arrow')
+var restartInGallery = document.getElementById('restart-in-gallery');
+
 var skillsPart = document.getElementById('rub-skills');
 var degreesPart = document.getElementById('rub-degrees');
 var experiencesPart = document.getElementById('rub-experiences');
 var likesPart = document.getElementById('rub-likes');
-var partIndex = document.getElementById("part-index");
-
-// Modals
-var openingModal = document.getElementById('opening-modal');
-var endingModalContainer = document.getElementById('ending-modal-container');
-var endingModal = document.getElementById('ending-modal');
-// Boutons des modals
-var startGameButton = document.getElementById('start-game-button');
-var skipGameButton = document.getElementById('skip-game-button');
-var restartInEnding = document.getElementById('restart-in-ending');
-var restartInGallery = document.getElementById('restart-in-gallery');
-var seePartsUnlocked = document.getElementById('parts-unlocked');
-var rightArrow = document.getElementById('gallery-right-arrow');
-var leftArrow = document.getElementById('gallery-left-arrow')
-var gallery = document.getElementById('gallery');
+var partIndex = document.getElementById('part-index');
 
 // Event listeners sur les touches du clavier
 window.addEventListener('keydown', function (event) {
@@ -164,18 +164,18 @@ restartInEnding.addEventListener('click', function (event) {
   event.preventDefault();
   translateY(endingModal);
   setTimeout(function() {
-    endingModalContainer.className = "hide";
-    removeAttr(endingModal, "style");
+    endingModalContainer.className = 'hide';
+    removeAttr(endingModal, 'style');
     game.start();
   }, 1000);
 });
 // depuis l'écran des parties du cv remportées
-restartInGallery.addEventListener("click", function(event) {
+restartInGallery.addEventListener('click', function(event) {
   event.preventDefault();
   translateY(gallery);
   setTimeout(function() {
-    gallery.className = "hide";
-    removeAttr(endingModal, "style");
+    gallery.className = 'hide';
+    removeAttr(gallery, 'style');
     game.start();
   }, 1000);
 });
@@ -200,7 +200,7 @@ function getImageSize (element) {
   }
 };
 
-// Créer une modal
+// Affiche la modal de fin de partie
 function showEndModal (config) {
   var scoreParagraph = document.getElementById('score');
   var messageParagraph = document.getElementById('message');
@@ -209,4 +209,9 @@ function showEndModal (config) {
   scoreParagraph.innerHTML = 'Score: ' + config.newScore.score;
   messageParagraph.innerHTML = config.text;
   endingModalContainer.className = 'flex';
+  if (partsUnlocked.length === 0) {
+    seePartsUnlocked.className = 'hide'
+  } else {
+    seePartsUnlocked.className = 'show'
+  }
 };
