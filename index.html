@@ -3,38 +3,63 @@
   <head>
     <meta charset="utf-8">
     <title>Claire POYO - JS Fullstack developer</title>
+    <link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet">
     <link rel="stylesheet" href="./styles/reset.css">
     <link rel="stylesheet" href="./vendors/font-awesome/font-awesome.min.css">
-    <link rel="stylesheet" href="./styles/style.css">
+    <link rel="stylesheet" href="./styles/common.css">
+    <link rel="stylesheet" href="./styles/actions.css">
+    <link rel="stylesheet" href="./styles/header.css">
+    <link rel="stylesheet" href="./styles/modals.css">
+    <link rel="stylesheet" href="./styles/cv.css">
   </head>
   <body>
-    <header id="header">
-      <h1><span class="firstname">Claire</span><span class="lastname">Poyo</span></h1>
+    
+    <header class="header">
+      <h1>Claire Poyo</h1>
+      <ul class="header-links actions-list">
+        <li>
+          <a class="action-underlined action-underlined-small" target="_blank" href="https://fr.linkedin.com/in/claire-poyo-88265a35">
+            Linkedin
+          </a>
+        </li>
+        <li>
+          <a class="action-underlined action-underlined-small" href="mailto:claire.poyo@gmail.com">
+            me contacter
+          </a>
+        </li>
+      </ul>
     </header>
+    
     <main>
-      <div id="game-container">
-        <div id="opening-modal" class="flex">
-          <button class="button-underlined" id="start-game-button" type="button">
-            <span>Jouer</span>
-          </button>
-          <a href="assets/CV_Claire_POYO" download="Pacman_Kiwi">Télécharger mon cv</a>
-          <a class="button-underlined" id="skip-game-button" type="button">
-            <span>Voir mon CV</span>
-          </button>
-        </div>
-        <div id="in-game-message"></div>
-        <canvas id="canvas"></canvas>
-        <div id="ending-modal-container" class="hide">
-          <div id="ending-modal">
-            <div id="score"></div>
-            <p id="message"></p>
-            <div class="button-container">
-              <button id="restart-in-ending" type="button"><i class="fa fa-refresh fa-2x fa-fw" aria-hidden="true" title="Recommencer"></i></button>
-              <button id="parts-unlocked" type="button">Voir les parties débloquées</button>
-              <button type="button"><i class="fa fa-file-text-o fa-2x fa-fw" aria-hidden="true" title="Voir mon cv"></i></button>
-            </div>
+      
+      <div id="opening-modal">
+        <ul class="actions-list actions-list-big">
+          <li>
+            <button class="opening-modal-action action-underlined" id="start-game-button" type="button">Jouer</button>
+          </li>
+          <li>
+            <a class="opening-modal-action action-underlined" id="skip-game-button" href="assets/CV_Claire_POYO" download="CV_Claire_POYO">Télécharger mon cv</a>
+          </li>
+        </ul>
+      </div>
+      
+      <div id="ending-modal-container" class="hide">
+        <div id="ending-modal">
+          <div id="score"></div>
+          <p id="message"></p>
+          <div class="button-container">
+            <button id="restart-in-ending" type="button"><i class="fa fa-refresh fa-2x fa-fw" aria-hidden="true" title="Recommencer"></i></button>
+            <button id="parts-unlocked" type="button">Voir les parties débloquées</button>
+            <a href="assets/CV_Claire_POYO" download="CV_Claire_POYO"><i class="fa fa-file-text-o fa-2x fa-fw" aria-hidden="true"></i>Télécharger mon cv</a>
           </div>
         </div>
+      </div>
+        
+      <div id="game-container">
+        
+        <div id="in-game-message"></div>
+        <canvas id="canvas"></canvas>
+        
         <div id="gallery" class="hide">
           <div id="gallery-container">
             <button id="gallery-left-arrow" type="button" class="fa fa-arrow-left fa-2x hide"></button>
@@ -97,7 +122,7 @@
             <div id="gallery-footer">
               <button id="restart-in-gallery" type="button"><i class="fa fa-refresh fa-2x fa-fw" aria-hidden="true" title="Recommencer"></i></button>
               <p id="part-index"></p>
-              <button type="button"><i class="fa fa-file-text-o fa-2x fa-fw" aria-hidden="true"></i></button>
+              <a href="assets/CV_Claire_POYO" download="CV_Claire_POYO"><i class="fa fa-file-text-o fa-2x fa-fw" aria-hidden="true"></i>Télécharger mon cv</a>
             </div>
           </div>
         </div>

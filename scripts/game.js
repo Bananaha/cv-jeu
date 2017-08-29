@@ -199,6 +199,7 @@ function Game () {
           canvasHeight: canvasHeight,
           canvasWidth: canvasWidth,
           speed: SPEED,
+          gameStage: gameStage,
           BOSS_MAXY: BOSS_MAXY,
           allAmmos: allAmmos,
           random: random,
@@ -206,6 +207,7 @@ function Game () {
           newScore: newScore
         }));
         gameStage++;
+        console.log('after', gameStage);
         createBoss = true;
       }
     }

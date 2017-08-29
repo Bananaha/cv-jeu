@@ -1,0 +1,84 @@
+#gallery {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 130px 30px 200px;
+  background: transparent;
+  color: #f0f0f0;
+  justify-content: space-around;
+  flex-direction: row;
+  align-items: center;
+  overflow: auto;
+  font-size: 14px;
+  color: #333;
+}
+
+#gallery h2 {
+  color: #8250A5;
+  text-align: left;
+}
+
+#gallery h2 i {
+  margin-right: 0.5em;
+}
+
+#gallery ul + ul {
+  border-left: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+#gallery-container {
+  padding: 10px;
+  background: #FFF;
+  border-radius: 3px;
+  box-sizing: border-box;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: auto;
+}
+
+#gallery-content {
+  margin: 0 auto;
+  flex: 1;
+}
+
+#gallery-arrow-left {
+  padding-left: 20px;
+}
+#gallery-arrow-right {
+  padding-right: 20px;
+}
+
+#gallery-footer {
+  display: block;
+  position: absolute;
+  bottom: 0;
+}
+
+#gallery-footer p{
+  display: inline-block;
+}
+
+#gallery .ul-container {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+#gallery.ul-container ul {
+  flex: 1;
+  padding: 0 45px;
+}
+
+#gallery .comment {
+  font-size: 14px;
+  margin: -30px 0 0 113px;
+}

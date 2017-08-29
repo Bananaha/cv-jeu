@@ -16,6 +16,14 @@ var textMessage = {
 };
 
 var IMG = {
+  bossBlue: './assets/boss-blue.png',
+  bossBrown: './assets/boss-brown.png',
+  bossPink: './assets/boss-pink.png',
+  bossYellow: './assets/boss-yellow.png',
+  cloud1: './assets/cloud1.png',
+  cloud2: './assets/cloud2.png',
+  cloud3: './assets/cloud3.png',
+  cloud4: './assets/cloud4.png',
   ennemyBlue: './assets/ennemy-blue.png',
   ennemyBrown: './assets/ennemy-brown.png',
   ennemyPink: './assets/ennemy-pink.png',
@@ -29,8 +37,10 @@ var IMG = {
   mountainBack: './assets/mountain-back.png',
   mountainFront: './assets/mountain-front.png',
   mountainMiddle: './assets/mountain-middle.png',
+  shotBoss: './assets/shot-boss.png',
   shotCircle: './assets/shot-circle.png',
   shotRainbow: './assets/shot-rainbow.png',
+  star: './assets/star.png',
   unicorn: './assets/unicorn.png',
   unicornRainbow: './assets/unicorn-rainbow.png'
 };
@@ -91,7 +101,6 @@ window.addEventListener('keyup', function (event) {
 
 seePartsUnlocked.addEventListener('click', function (event) {
   event.preventDefault();
-  translateY(endingModal);
   setTimeout(function () {
     endingModalContainer.className = 'hide';
     removeAttr(endingModal, 'style');
@@ -140,53 +149,36 @@ leftArrow.addEventListener('click', function () {
 });
 
 startGameButton.addEventListener('click', function () {
-  translateY(startGameButton);
-  translateY(skipGameButton);
-  setTimeout(function () {
     openingModal.className = 'hide';
     removeAttr(startGameButton, 'style');
     removeAttr(skipGameButton, 'style');
     game.start()
-  }, 1000);
 });
 
 skipGameButton.addEventListener('click', function (event) {
   event.preventDefault();
-  translateY(startGameButton);
-  translateY(skipGameButton);
-
 });
 
 // Relance une partie
 // depuis la modal de fin de jeu
 restartInEnding.addEventListener('click', function (event) {
   event.preventDefault();
-  translateY(endingModal);
-  setTimeout(function() {
-    endingModalContainer.className = 'hide';
-    removeAttr(endingModal, 'style');
-    game.start();
-  }, 1000);
+  endingModalContainer.className = 'hide';
+  removeAttr(endingModal, 'style');
+  game.start();
 });
 // depuis l'écran des parties du cv remportées
 restartInGallery.addEventListener('click', function (event) {
   event.preventDefault();
-  translateY(gallery);
-  setTimeout(function () {
-    gallery.className = 'hide';
-    removeAttr(gallery, 'style');
-    game.start();
-  }, 1000);
+  gallery.className = 'hide';
+  removeAttr(gallery, 'style');
+  game.start();
 });
 
 
 // Génère une position X aléatoire
 function random (min, max) {
   return Math.random() * ((max - min) - min) + min;
-};
-
-function translateY (element) {
-  element.style.transform = ' translateY(' + game.getSize().canvasHeight + 'px)';
 };
 
 function removeAttr (element, attribute) {
@@ -206,7 +198,12 @@ function showEndModal (config) {
   var messageParagraph = document.getElementById('message');
   endingModalContainer.style.width = config.canvasWidth + 'px';
   endingModalContainer.style.height = config.canvasHeight + 'px';
-  scoreParagraph.innerHTML = 'Score: ' + config.newScore.score;
+  scoreParagraph.innerHTML = [
+    '<span class="score-label">Score:</span>',
+    '<span class="score-value">',
+    config.newScore.score,
+    '</span>'
+  ].join('');
   messageParagraph.innerHTML = config.text;
   endingModalContainer.className = 'flex';
   if (partsUnlocked.length === 0) {

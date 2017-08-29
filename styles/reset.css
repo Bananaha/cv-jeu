@@ -454,3 +454,7 @@ ul {
   padding: 0;
   list-style: none;
 }
+
+button:hover, button:active, button:focus  {
+  outline: none;
+}

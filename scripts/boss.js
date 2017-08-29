@@ -1,6 +1,13 @@
 // Contructeur des boss
 var Boss = function (config) {
   var shotDate;
+  var BOSS_IMAGE = [
+    gameImages.bossBlue,
+    gameImages.bossPink,
+    gameImages.bossYellow, 
+    gameImages.bossBrown
+    ];
+  var imageBoss = BOSS_IMAGE[gameStage];
   this.context = config.ctx;
   this.radius = 300;
   this.originX = config.canvasWidth + this.radius;
