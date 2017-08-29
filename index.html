@@ -2,33 +2,31 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Hello you</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link rel="stylesheet" href="./vendors/font-awesome/font-awesome.min.css">
+    <title>Claire POYO - JS Fullstack developer</title>
     <link rel="stylesheet" href="./styles/reset.css">
+    <link rel="stylesheet" href="./vendors/font-awesome/font-awesome.min.css">
     <link rel="stylesheet" href="./styles/style.css">
-    <link rel="stylesheet" href="./styles/gallery.css">
-    <link rel="stylesheet" href="./styles/ending-modal.css">
-    <link rel="stylesheet" href="./styles/opening-modal.css">
   </head>
   <body>
     <header id="header">
-      <h1>Hello you</h1>
+      <h1><span class="firstname">Claire</span><span class="lastname">Poyo</span></h1>
     </header>
     <main>
       <div id="game-container">
         <div id="opening-modal" class="flex">
-          <button id="start-game-button" type="button">Jouer</button>
-          <button id="skip-game-button" type="button">Voir mon CV</button>
+          <button class="button-underlined" id="start-game-button" type="button">
+            <span>Jouer</span>
+          </button>
+          <button class="button-underlined" id="skip-game-button" type="button">
+            <span>Voir mon CV</span>
+          </button>
         </div>
         <canvas id="canvas"></canvas>
         <div id="ending-modal-container" class="hide">
           <div id="ending-modal">
-            <div id="text-container">
-              <p id="score"></p>
-              <p id="message"></p>
-            </div>
-            <div id="button-container">
+            <div id="score"></div>
+            <p id="message"></p>
+            <div class="button-container">
               <button id="restart-in-ending" type="button"><i class="fa fa-refresh fa-2x fa-fw" aria-hidden="true" title="Recommencer"></i></button>
               <button id="parts-unlocked" type="button">Voir les parties débloquées</button>
               <button type="button"><i class="fa fa-home fa-2x fa-fw" aria-hidden="true"></i></button>

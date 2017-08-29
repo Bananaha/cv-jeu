@@ -38,20 +38,6 @@ var gameImages = {};
 var imagesCount = Object.keys(IMG).length;
 var loadedImagesCount = 0;
 
-for (var key in IMG) {
-  var image = new Image();
-  image.src = IMG[key];
-  gameImages[key] = image;
-  image.onload = function () {
-    loadedImagesCount++;
-    if (loadedImagesCount === imagesCount) {
-      game = new Game();
-      openingModal.style.width = game.getSize().canvasWidth + 'px';
-      openingModal.style.height = game.getSize().canvasHeight + 'px';
-    }
-  }
-}
-
 var skillsPart = document.getElementById('rub-skills');
 var degreesPart = document.getElementById('rub-degrees');
 var experiencesPart = document.getElementById('rub-experiences');
@@ -71,6 +57,20 @@ var seePartsUnlocked = document.getElementById('parts-unlocked');
 var rightArrow = document.getElementById('gallery-right-arrow');
 var leftArrow = document.getElementById('gallery-left-arrow')
 var gallery = document.getElementById('gallery');
+
+for (var key in IMG) {
+  var image = new Image();
+  image.src = IMG[key];
+  gameImages[key] = image;
+  image.onload = function () {
+    loadedImagesCount++;
+    if (loadedImagesCount === imagesCount) {
+      game = new Game();
+      openingModal.style.width = game.getSize().canvasWidth + 'px';
+      openingModal.style.height = game.getSize().canvasHeight + 'px';
+    }
+  }
+}
 
 // Event listeners sur les touches du clavier
 window.addEventListener('keydown', function (event) {
@@ -172,7 +172,7 @@ restartInEnding.addEventListener('click', function (event) {
 // depuis l'écran des parties du cv remportées
 restartInGallery.addEventListener("click", function(event) {
   event.preventDefault();
-  translateY(gallery);
+  //translateY(gallery);
   setTimeout(function() {
     gallery.className = "hide";
     removeAttr(endingModal, "style");
@@ -206,7 +206,7 @@ function showEndModal (config) {
   var messageParagraph = document.getElementById('message');
   endingModalContainer.style.width = config.canvasWidth + 'px';
   endingModalContainer.style.height = config.canvasHeight + 'px';
-  scoreParagraph.innerHTML = 'Score: ' + config.newScore.score;
+  scoreParagraph.innerHTML = '<span class="score-label">Score:</span> <span class="score-value">' + config.newScore.score + '</span>';
   messageParagraph.innerHTML = config.text;
   endingModalContainer.className = 'flex';
 };
