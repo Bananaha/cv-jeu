@@ -7,15 +7,18 @@ function Background (config) {
   var PARAMS_BY_IMAGE = {
     mountainBack: {
       velocity: 0.1,
-      yOffset: 0
     },
     mountainMiddle: {
       velocity: 0.14,
-      yOffset: 0
+    },
+    cloud1: {
+      velocity: 0.2,
+      yOffset: 250,
+      xOffset: 100,
+      spaceBetween: 850
     },
     mountainFront: {
       velocity: 0.3,
-      yOffset: 0
     },
     forestBack: {
       velocity: 0.5,
@@ -31,7 +34,24 @@ function Background (config) {
     },
     hillFront: {
       velocity: 1,
-      yOffset: 0
+    },
+    cloud2: {
+      velocity: 0.31,
+      yOffset: 400,
+      xOffset: 600,
+      spaceBetween: 900
+    },
+    cloud3: {
+      velocity: 0.29,
+      yOffset: 500,
+      xOffset: 300,
+      spaceBetween: 650
+    },
+    cloud4: {
+      velocity: 0.3,
+      yOffset: 600,
+      xOffset: 700,
+      spaceBetween: 800
     }
   };
 
@@ -46,14 +66,17 @@ function Background (config) {
   var backgroundImages = {};
   for (var key in PARAMS_BY_IMAGE) {
     var imageSize = getImageSize(gameImages[key]);
+    var realWidth = imageSize.width + (PARAMS_BY_IMAGE[key].spaceBetween || 0);
     backgroundImages[key] = {
       image: gameImages[key],
       height: imageSize.height,
       width: imageSize.width,
       x: 0,
-      occurrence: Math.ceil(config.canvasWidth / imageSize.width) + 1,
+      occurrence: Math.ceil(config.canvasWidth / realWidth) + 1,
       velocity: PARAMS_BY_IMAGE[key].velocity,
-      yOffset: PARAMS_BY_IMAGE[key].yOffset
+      yOffset: PARAMS_BY_IMAGE[key].yOffset || 0,
+      xOffset: PARAMS_BY_IMAGE[key].xOffset || 0,
+      realWidth: realWidth
     }
   }
 
@@ -71,13 +94,13 @@ function Background (config) {
     // Background assets et parallax
     function repeatImage (asset) {
       for (var i = 0; i < asset.occurrence; i++ ) {
-        var x = asset.x + asset.width * i;
+        var x = asset.x + asset.xOffset + asset.realWidth * i;
         config.context.drawImage(asset.image, x, config.canvasHeight - asset.height - asset.yOffset);
       }
 
       asset.x -= asset.velocity;
 
-      if(asset.x <= -asset.width) {
+      if(asset.x + asset.xOffset <= - asset.realWidth) {
         asset.x = 0;
       }
     }
@@ -85,5 +108,18 @@ function Background (config) {
     for (key in PARAMS_BY_IMAGE) {
       repeatImage(backgroundImages[key]);
     }
+    
+    //function createCloud () {
+    //  var renderDate = Date.now();
+     // var x = config.canvasWidth - (this.renderDate - this.creationDate) * this.speed;
+    // }
+    // Definir le changement de position Y à partir de la génération de l'objet - postion initiale - durée * vitesse
+    
+
+    // var y = random(config.canvasHeight / 3, 50);
+    // Définir les paramètres de l'objet
+    
+    // this.context.drawImage(ennemyImage, this.x - getImageSize(image).width / 2, this.y - getImageSize(image).height / 2);
+  //};
   };
 };

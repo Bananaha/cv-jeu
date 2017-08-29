@@ -7,9 +7,9 @@ var Boss = function (config) {
     gameImages.bossYellow, 
     gameImages.bossBrown
     ];
-  var imageBoss = BOSS_IMAGE[config.gameStage - 1];
+  var bossImage = BOSS_IMAGE[config.gameStage - 1];
   this.context = config.ctx;
-  this.radius = 300;
+  this.radius = 200;
   this.originX = config.canvasWidth + this.radius;
   this.x = this.originX;
   this.y = config.canvasHeight / 2;
@@ -29,10 +29,10 @@ var Boss = function (config) {
     }
     // Définir les paramètres de l'objet
     this.context.beginPath();
-    this.context.fillStyle = colors.boss;
     this.context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
-    this.context.fill();
     this.context.closePath();
+    this.context.drawImage(bossImage, this.x - getImageSize(bossImage).width / 2, this.y - getImageSize(bossImage).height / 2);
+    
 
     checkForShot.apply(this);
   };
