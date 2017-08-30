@@ -44,23 +44,6 @@ var IMG = {
   unicorn: './assets/unicorn.png',
   unicornRainbow: './assets/unicorn-rainbow.png'
 };
-var gameImages = {};
-var imagesCount = Object.keys(IMG).length;
-var loadedImagesCount = 0;
-
-for (var key in IMG) {
-  var image = new Image();
-  image.src = IMG[key];
-  gameImages[key] = image;
-  image.onload = function () {
-    loadedImagesCount++;
-    if (loadedImagesCount === imagesCount) {
-      game = new Game();
-      openingModal.style.width = game.getSize().canvasWidth + 'px';
-      openingModal.style.height = game.getSize().canvasHeight + 'px';
-    }
-  }
-}
 
 var openingModal = document.getElementById('opening-modal');
 var startGameButton = document.getElementById('start-game-button');
@@ -83,6 +66,28 @@ var degreesPart = document.getElementById('rub-degrees');
 var experiencesPart = document.getElementById('rub-experiences');
 var likesPart = document.getElementById('rub-likes');
 var partIndex = document.getElementById('part-index');
+
+var gameImages = {};
+var imagesCount = Object.keys(IMG).length;
+var loadedImagesCount = 0;
+
+for (var key in IMG) {
+  var image = new Image();
+  image.src = IMG[key];
+  gameImages[key] = image;
+  image.onload = function () {
+    loadedImagesCount++;
+    if (loadedImagesCount === imagesCount) {
+      var loader = document.getElementById('rainbow-container');
+      loader.style.display = 'none';
+      loader.className = 'hide';
+      openingModal.className = 'show';
+      game = new Game();
+      openingModal.style.width = game.getSize().canvasWidth + 'px';
+      openingModal.style.height = game.getSize().canvasHeight + 'px';
+    }
+  }
+}
 
 // Event listeners sur les touches du clavier
 window.addEventListener('keydown', function (event) {

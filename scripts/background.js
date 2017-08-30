@@ -1,6 +1,7 @@
 function Background (config) {
   var pinkBackgroundHeight = 165;
   var pinkGradientBackgroundHeight = 433;
+  
   this.context = config.context;
   var velocity = 2;
 
@@ -54,6 +55,8 @@ function Background (config) {
       spaceBetween: 800
     }
   };
+  
+ 
 
   var gradientBlue = this.context.createLinearGradient(0, 0, 0, config.canvasHeight);
   gradientBlue.addColorStop(0, '#5189ba');
@@ -67,6 +70,7 @@ function Background (config) {
   for (var key in PARAMS_BY_IMAGE) {
     var imageSize = getImageSize(gameImages[key]);
     var realWidth = imageSize.width + (PARAMS_BY_IMAGE[key].spaceBetween || 0);
+    
     backgroundImages[key] = {
       image: gameImages[key],
       height: imageSize.height,
@@ -80,19 +84,38 @@ function Background (config) {
     }
   }
 
-  this.render = function () {
-    // Background colors(sky)
-    this.context.fillStyle = gradientBlue;
-    this.context.fillRect(0, 0, config.canvasWidth, config.canvasHeight);
-
-    this.context.fillStyle = '#8950ad';
-    this.context.fillRect(0, config.canvasHeight - pinkBackgroundHeight, config.canvasWidth, pinkBackgroundHeight);
-
-    this.context.fillStyle = gradientPink;
-    this.context.fillRect(0, config.canvasHeight - pinkBackgroundHeight - pinkGradientBackgroundHeight, config.canvasWidth, pinkGradientBackgroundHeight);
-
-    // Background assets et parallax
-    function repeatImage (asset) {
+  //créer des stars & bubble en random sur le canvas
+  // changer leur position x à une vitesse données
+  // lorsqu'elles sortent du canvas réinitialiser la position x de l'élément
+  
+  var randomElement = [];
+  
+  for (var i = 0; i < 10; i++) {
+    
+    var star = {
+      image: gameImages.star,
+      x: random(0, config.canvasWidth - getImageSize(gameImages.star).width),
+      y: random(getImageSize(gameImages.star).height, config.canvasHeight - backgroundImages.forestBack.height),
+      createDate: Date.now()
+    };
+    
+    for (var j = 0; j < 3; j++) {
+      var bubble = {
+        x: random(0, config.canvasWidth - getImageSize(gameImages.star).width),
+        y: random(getImageSize(gameImages.star).height, config.canvasHeight - backgroundImages.forestBack.height),
+        draw: function () {
+          config.context.beginPath();
+          config.context.fillStyle = 'rgba(0, 0, 0, 0.1)';
+          config.context.arc(this.x, this.y, 3, 0, Math.PI * 2, true)
+          config.context.fill();
+          config.context.closePath();
+        }
+      };
+      randomElement.push(star, bubble);
+    }
+  }
+  console.log(randomElement)
+  function repeatImage (asset) {
       for (var i = 0; i < asset.occurrence; i++ ) {
         var x = asset.x + asset.xOffset + asset.realWidth * i;
         config.context.drawImage(asset.image, x, config.canvasHeight - asset.height - asset.yOffset);
@@ -104,22 +127,28 @@ function Background (config) {
         asset.x = 0;
       }
     }
+  this.render = function () {
+    // Background colors(sky)
+    
+    this.context.fillStyle = gradientBlue;
+    this.context.fillRect(0, 0, config.canvasWidth, config.canvasHeight);
 
+    this.context.fillStyle = '#8950ad';
+    this.context.fillRect(0, config.canvasHeight - pinkBackgroundHeight, config.canvasWidth, pinkBackgroundHeight);
+
+    this.context.fillStyle = gradientPink;
+    this.context.fillRect(0, config.canvasHeight - pinkBackgroundHeight - pinkGradientBackgroundHeight, config.canvasWidth, pinkGradientBackgroundHeight);
+
+    randomElement.forEach(function (element) {
+      if(!element.draw) {
+        config.context.drawImage(element.image, element.x, element.y);
+      } else {
+        element.draw();
+      }
+    })
+    // Background assets et parallax
     for (key in PARAMS_BY_IMAGE) {
       repeatImage(backgroundImages[key]);
     }
-    
-    //function createCloud () {
-    //  var renderDate = Date.now();
-     // var x = config.canvasWidth - (this.renderDate - this.creationDate) * this.speed;
-    // }
-    // Definir le changement de position Y à partir de la génération de l'objet - postion initiale - durée * vitesse
-    
-
-    // var y = random(config.canvasHeight / 3, 50);
-    // Définir les paramètres de l'objet
-    
-    // this.context.drawImage(ennemyImage, this.x - getImageSize(image).width / 2, this.y - getImageSize(image).height / 2);
-  //};
   };
 };
