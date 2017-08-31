@@ -207,7 +207,6 @@ function Game () {
           newScore: newScore
         }));
         gameStage++;
-        console.log('after', gameStage);
         createBoss = true;
       }
     }

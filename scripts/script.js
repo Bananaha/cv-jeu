@@ -199,6 +199,7 @@ function getImageSize (element) {
 
 // Affiche la modal de fin de partie
 function showEndModal (config) {
+  console.log('fin')
   var scoreParagraph = document.getElementById('score');
   var messageParagraph = document.getElementById('message');
   endingModalContainer.style.width = config.canvasWidth + 'px';

@@ -22,6 +22,7 @@ var Boss = function (config) {
   this.render = function () {
     // Definir le changement de position Y à partir de la génération de l'objet - postion initiale - durée * vitesse
     this.renderDate = Date.now();
+    this.ammoPos = random((config.canvasHeight - (this.radius * 2)) / 2, config.canvasHeight - (config.canvasHeight - (this.radius * 2)) / 2)
     if (this.x > config.BOSS_MAXY) {
       this.x = this.originX - (this.renderDate - this.creationDate) * this.speed;
     } else {
@@ -33,16 +34,16 @@ var Boss = function (config) {
     this.context.closePath();
     this.context.drawImage(bossImage, this.x - getImageSize(bossImage).width / 2, this.y - getImageSize(bossImage).height / 2);
     
-
     checkForShot.apply(this);
   };
 
   function checkForShot () {
     // le boss tire dès qu'il atteint sa position finale
     if (this.x === config.BOSS_MAXY) {
-      shotDate = config.launchAmmo(config.allAmmos.boss, this.x - this.radius, config.random(0, this.radius * 2), 1, shotDate, config.shotSpeed, 'boss');
+      shotDate = config.launchAmmo(config.allAmmos.boss, this.x - this.radius, this.ammoPos, 1, shotDate, config.shotSpeed, 'boss');
     }
   }
+  console.log(config.random((config.canvasHeight - (this.radius * 2)) / 2, config.canvasHeight - (config.canvasHeight - (this.radius * 2)) / 2))
   this.removeLife = function () {
     this.life -= 1;
     config.newScore.score += 100;

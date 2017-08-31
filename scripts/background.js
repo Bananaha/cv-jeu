@@ -83,10 +83,6 @@ function Background (config) {
       realWidth: realWidth
     }
   }
-
-  //créer des stars & bubble en random sur le canvas
-  // changer leur position x à une vitesse données
-  // lorsqu'elles sortent du canvas réinitialiser la position x de l'élément
   
   var randomElement = [];
   
@@ -105,7 +101,7 @@ function Background (config) {
         y: random(getImageSize(gameImages.star).height, config.canvasHeight - backgroundImages.forestBack.height),
         draw: function () {
           config.context.beginPath();
-          config.context.fillStyle = 'rgba(0, 0, 0, 0.1)';
+          config.context.fillStyle = 'rgba(255, 255, 255, 0.05';
           config.context.arc(this.x, this.y, 3, 0, Math.PI * 2, true)
           config.context.fill();
           config.context.closePath();
@@ -114,7 +110,7 @@ function Background (config) {
       randomElement.push(star, bubble);
     }
   }
-  console.log(randomElement)
+  
   function repeatImage (asset) {
       for (var i = 0; i < asset.occurrence; i++ ) {
         var x = asset.x + asset.xOffset + asset.realWidth * i;
@@ -128,8 +124,8 @@ function Background (config) {
       }
     }
   this.render = function () {
-    // Background colors(sky)
     
+    // Background colors(sky)
     this.context.fillStyle = gradientBlue;
     this.context.fillRect(0, 0, config.canvasWidth, config.canvasHeight);
 
@@ -139,6 +135,7 @@ function Background (config) {
     this.context.fillStyle = gradientPink;
     this.context.fillRect(0, config.canvasHeight - pinkBackgroundHeight - pinkGradientBackgroundHeight, config.canvasWidth, pinkGradientBackgroundHeight);
 
+    // Random element
     randomElement.forEach(function (element) {
       if(!element.draw) {
         config.context.drawImage(element.image, element.x, element.y);
@@ -146,7 +143,7 @@ function Background (config) {
         element.draw();
       }
     })
-    // Background assets et parallax
+    // Affichage des assets du background
     for (key in PARAMS_BY_IMAGE) {
       repeatImage(backgroundImages[key]);
     }
