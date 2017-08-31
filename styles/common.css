@@ -29,6 +29,11 @@ body {
   font-weight: 300;
 }
 
+canvas {
+  position: absolute;
+  bottom: 0;
+}
+
 button i {
   vertical-align: middle;
   float: left;

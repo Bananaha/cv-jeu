@@ -1,3 +1,4 @@
+var showDebug = false;
 var game;
 var colors = {
   ammo: '#e74444',
@@ -183,7 +184,7 @@ restartInGallery.addEventListener('click', function (event) {
 
 // Génère une position X aléatoire
 function random (min, max) {
-  return Math.random() * ((max - min) - min) + min;
+  return Math.random() * (max - min) + min;
 };
 
 function removeAttr (element, attribute) {

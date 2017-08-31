@@ -120,7 +120,7 @@ function Background (config) {
       asset.x -= asset.velocity;
 
       if(asset.x + asset.xOffset <= - asset.realWidth) {
-        asset.x = 0;
+        asset.x = -asset.xOffset;
       }
     }
   this.render = function () {

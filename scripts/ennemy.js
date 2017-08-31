@@ -6,7 +6,9 @@ function Ennemy (speedCoeff, config) {
     gameImages.ennemyYellow, 
     gameImages.ennemyBrown
     ];
+
   var ennemyImage = ENNEMY_IMAGE[config.gameStage - 1];
+
   this.context = config.ctx;
   this.radius = 50;
   // Position x aléatoire dans le canvas
@@ -25,12 +27,24 @@ function Ennemy (speedCoeff, config) {
     // Définir les paramètres de l'objet
     this.context.beginPath();
     this.context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
-    this.context.drawImage(ennemyImage, this.x - getImageSize(image).width / 2, this.y - getImageSize(image).height / 2);
+    if (showDebug) {
+      this.context.lineWidth = 5;
+      this.context.strokeStyle = '#FFFFFF';
+      this.context.stroke();
+    }
+    var x = this.x - getImageSize(image).width / 2 - 40;
+    var y =  this.y - getImageSize(image).height / 2 - 8;
+    this.context.drawImage(ennemyImage, x, y);
     this.context.closePath();
+    
+    if (this.x < -getImageSize(image).width) {
+      this.removeLife();
+    }
   };
+  
   this.removeLife = function (collidedElement) {
     this.life -= 1;
-    if (collidedElement.constructor !== Player) {
+    if (collidedElement && collidedElement.constructor !== Player) {
       config.newScore.score += 100;
     }
   };

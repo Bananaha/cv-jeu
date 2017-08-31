@@ -16,6 +16,7 @@ function Game () {
   var newScore;
   var started = false;
   var result = textMessage.lvl0;
+  var ennemiesByStage = 10;
 
   var BOSS_MAXY = canvasWidth;
   var SPEED = 20;
@@ -118,7 +119,7 @@ function Game () {
   // Vider les tableaux ennemis, ammos & bosses des objets hors canvas ou avec life === 0
   function withoutDeads (array) {
     return array.filter(function (element) {
-      return element.x <= canvasWidth + element.radius && element.x >= -element.radius && element.life > 0;
+      return element.life > 0;
     });
   };
 
@@ -158,7 +159,7 @@ function Game () {
       allAmmos.player = [];
     }
     // le boss apparait après x ennemis générés
-    if (ennemiesCounter === 5 || ennemiesCounter === 10 || ennemiesCounter === 15 || ennemiesCounter === 20) {
+    if (ennemiesCounter % ennemiesByStage === 0 && ennemiesCounter > 0) {
       // on fait apparaitre le boss
       if (createBoss === false) {
         var shotSpeed = 400;
@@ -172,8 +173,8 @@ function Game () {
         bosses.push(new Boss({
           shotSpeed: shotSpeed,
           rank: gameStage,
-          onDead(gameStage) {
-            switch (gameStage) {
+          onDead(bossLevel) {
+            switch (bossLevel) {
               case 1:
                 partsUnlocked.push(skillsPart);
                 result = textMessage.lvl1;
@@ -194,6 +195,7 @@ function Game () {
                 result = textMessage.lvl0;
                 break;
             }
+            gameStage++;
           },
           ctx: ctx,
           canvasHeight: canvasHeight,
@@ -206,10 +208,22 @@ function Game () {
           launchAmmo: launchAmmo,
           newScore: newScore
         }));
-        gameStage++;
         createBoss = true;
       }
     }
+    
+    if (player.life <= 0 || (gameStage === 5 && bosses.length === 0)) {
+      showEndModal({
+        canvasWidth: canvasWidth,
+        canvasHeight: canvasHeight,
+        newScore: newScore,
+        text: result
+      });
+      started = false;
+      window.requestAnimationFrame(draw);
+      return;
+    }
+    
     // dès que le palier est atteint, on arrête la production d'ennemis mais on continue le rendu des ennemis déjà générés.
     if (bosses.length === 0) {
       createEnnemies(lastFrameDate, gameStage);
@@ -230,15 +244,6 @@ function Game () {
     drawText(10, 30, 'Score: ' + newScore.score, 16, colors.text);
     drawLives(IMG.heartFull, 20);
 
-    if (player.life <= 0 || (gameStage === 5 && bosses.length === 0)) {
-      showEndModal({
-        canvasWidth: canvasWidth,
-        canvasHeight: canvasHeight,
-        newScore: newScore,
-        text: result
-      });
-      started = false;
-    }
     window.requestAnimationFrame(draw);
   };
 
