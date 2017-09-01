@@ -46,3 +46,22 @@ button i {
 .hide {
   display: none !important;
 }
+
+#in-game-message {
+  position: fixed;
+  z-index: 200;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  box-shadow: 0 0 10px rgba(152,96,182,0.9);
+  border: 1px solid rgb(152,96,182);
+  padding: 10px 20px;
+  background: #222222;
+  border-radius: 20px;
+  color: #FFF;
+  font-weight: 300;
+  line-height: 18px;
+}

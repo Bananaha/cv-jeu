@@ -11,6 +11,7 @@
   background: transparent;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
   display: flex;
 }
 
@@ -68,7 +69,6 @@
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  overflow: hidden;
   border-radius: 3px;
 }
 
@@ -82,7 +82,6 @@
 }
 
 .modal-body {
-  background: #FFF;
   display: flex;
   justify-content: center;
   align-items: center;

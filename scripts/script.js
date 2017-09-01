@@ -259,14 +259,10 @@ function showEndModal (config) {
 }
 
 function showNotification (message) {
-  console.log('message ', message);
-  inGameMessage.classList.remove('hide');
-  inGameMessage.classList.add('show');
+  inGameMessage.className = 'show';
   inGameMessage.innerHTML = message;
-  console.log(inGameMessage.innerHTML)
   
   setTimeout(function () {
-    inGameMessage.classList.remove('show');
-    inGameMessage.classList.add('hide');
+    inGameMessage.className = 'hide';
   }, 3000);
 };
