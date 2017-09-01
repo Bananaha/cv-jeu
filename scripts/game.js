@@ -15,8 +15,7 @@ function Game () {
   var createBoss;
   var newScore;
   var started = false;
-  var result = textMessage.lvl0;
-  var ennemiesByStage = 10;
+  var ennemiesByStage = 1;
 
   var BOSS_MAXY = canvasWidth;
   var SPEED = 20;
@@ -174,25 +173,36 @@ function Game () {
           shotSpeed: shotSpeed,
           rank: gameStage,
           onDead(bossLevel) {
+            console.log('bossLevel ',bossLevel)
             switch (bossLevel) {
               case 1:
                 partsUnlocked.push(skillsPart);
-                result = textMessage.lvl1;
+                result = textMessage.lvl1.endMessage;
+                console.log(textMessage.lvl1.notificationText);
+                showNotification(textMessage.lvl1.notificationText);
                 break;
               case 2:
+                console.log(textMessage.lvl2);
                 partsUnlocked.push(degreesPart);
-                result = textMessage.lvl2;
+                result = textMessage.lvl2.endMessage;
+                showNotification(textMessage.lvl2.notificationText);
+                
+                console.log(textMessage.lvl2.notificationText);
                 break;
               case 3:
                 partsUnlocked.push(experiencesPart);
-                result = textMessage.lvl3;
+                result = textMessage.lvl3.endMessage;
+                showNotification(textMessage.lvl3.notificationText);
+                console.log(textMessage.lvl3.notificationText);
                 break;
               case 4:
                 partsUnlocked.push(likesPart);
-                result = textMessage.lvl4;
+                result = textMessage.lvl4.endMessage;
+                showNotification(textMessage.lvl4.notificationText);
+                console.log(textMessage.lvl4.notificationText);
                 break;
               default:
-                result = textMessage.lvl0;
+                result = textMessage.lvl0.endMessage;
                 break;
             }
             gameStage++;

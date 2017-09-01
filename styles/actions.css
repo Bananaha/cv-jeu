@@ -11,6 +11,27 @@ a {
     text-decoration: none;
 }
 
+button,
+a {
+    transition: color 0.2s ease-out;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+a:hover,
+a:focus,
+button:hover,
+button:focus {
+    color: #FFF;
+}
+
+.icon-like {
+    font-weight: 600;
+    width: 46px;
+    line-height: 38px;
+    text-align: center;
+    font-size: 25px;
+}
+
 .action-underlined {
     position: relative;
     transition: color 0.3s ease-out;
@@ -32,12 +53,12 @@ a {
 }
 
 .action-underlined:hover,
-.action-underlined:active {
+.action-underlined:focus {
     color: #FFF;
 }
 
 .action-underlined:hover::before,
-.action-underlined:active::before {
+.action-underlined:focus::before {
     transform: scaleX(1); 
     -moz-transform: scaleX(1);
     -webkit-transform: scaleX(1);

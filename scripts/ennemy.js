@@ -32,13 +32,13 @@ function Ennemy (speedCoeff, config) {
       this.context.strokeStyle = '#FFFFFF';
       this.context.stroke();
     }
-    var x = this.x - getImageSize(image).width / 2 - 40;
-    var y =  this.y - getImageSize(image).height / 2 - 8;
+    var x = this.x - getImageSize(ennemyImage).width / 2;
+    var y =  this.y - getImageSize(ennemyImage).height / 2 - 8;
     this.context.drawImage(ennemyImage, x, y);
     this.context.closePath();
     
-    if (this.x < -getImageSize(image).width) {
-      this.removeLife();
+    if (this.x < -getImageSize(ennemyImage).width) {
+      this.life = 0;
     }
   };
   

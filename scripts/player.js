@@ -10,6 +10,8 @@ function Player (config) {
     '#6a5dbd',
     '#9350b6'
   ];
+  
+  var UNICORN_Y = [0, 160, 320, 480, 640, 800, 960, 1120];
   //  Défini la position initiale du joueur
   this.radius = 50;
   this.x = this.radius * 2;
@@ -34,16 +36,14 @@ function Player (config) {
       config.context.stroke();
     }
     config.context.closePath();
-    // combien de rectangles sont générés entre la licorne et la bordure
-    // en déduire la largeur de chacun
-    // créer un tableau qui stock la position y de chacun des rectangles et qui est initialisé par la position y de la licorne
-    // a chaque render, prendre la position y de la licorne la mettre en fin de tableau et supprimer le 1er élément
 
     rainbowParticules.push(this.y);
     rainbowParticules.shift();
 
     for (var colorIndex = 0; colorIndex < RAINBOWCOLORS.length; colorIndex++) {
+      
       for (var yIndex = 0; yIndex < rainbowParticules.length; yIndex++) {
+        
         config.context.beginPath();
         config.context.fillStyle = RAINBOWCOLORS[colorIndex];
         // y de rect = y de sa colonne + hauteur de couleur * index de couleur
@@ -52,7 +52,10 @@ function Player (config) {
         config.context.closePath();
       }
     }
+    
+
     config.context.drawImage(gameImages.unicorn, this.x - getImageSize(gameImages.unicorn).width / 2, this.y - getImageSize(gameImages.unicorn).height / 2);
+    // config.context.drawImage(gameImages.unicornSprite, 50, 0, 320, 160, 0, this.y - getImageSize(gameImages.unicorn).height / 2 , 320, 160)
 
     checkEvents.apply(this);
   };

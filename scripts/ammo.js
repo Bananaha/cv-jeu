@@ -33,13 +33,13 @@ function Ammo (x, y, sens, config) {
       this.context.drawImage(gameImages.shotCircle, this.x - imageSize.width / 2 + 3, this.y - imageSize.height / 2 + 3);
       
       if (this.x > config.canvasWidth + imageSize.width / 2 + getImageSize(gameImages.shotRainbow).width) {
-        this.removeLife();
+        this.life = 0;
       }
     } else {
       this.context.drawImage(gameImages.shotBoss, this.x + (this.radius * 1.5) - (imageSize.width / 2) + 4, this.y - imageSize.height / 2 + 3);
       
       if (this.x < - imageSize.width) {
-        this.removeLife();
+        this.life = 0;
       }
     }
   };

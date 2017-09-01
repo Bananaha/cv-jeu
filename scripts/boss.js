@@ -15,7 +15,7 @@ var Boss = function (config) {
   this.y = config.canvasHeight / 2;
   this.speed = config.speed / 200;
   // Défini si la forme s'affiche
-  this.life = 10;
+  this.life = 1;
   
   this.creationDate = Date.now();
   this.rank = config.rank;

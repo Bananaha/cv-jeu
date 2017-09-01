@@ -36,7 +36,6 @@ canvas {
 
 button i {
   vertical-align: middle;
-  float: left;
   margin: 5px;
 }
 
@@ -45,5 +44,5 @@ button i {
 }
 
 .hide {
-  display: none;
+  display: none !important;
 }

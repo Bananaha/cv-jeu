@@ -1,10 +1,10 @@
 /* Créer par Luke Meyrick (src: codepen - https://codepen.io/lukemeyrick/pen/eEyqVN) */
 #rainbow-container {
-    position: fixed;
-    top: 40px;
-    display: flex;
-    height: 100%;
-    width: 100%;
+  position: fixed;
+  top: 40px;
+  display: flex;
+  height: 100%;
+  width: 100%;
 	flex-wrap: wrap;
 	align-items: center;
 	justify-content: center;

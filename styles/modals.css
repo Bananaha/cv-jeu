@@ -11,7 +11,6 @@
   background: transparent;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
   display: flex;
 }
 
@@ -41,43 +40,9 @@
   height: 200px;
   max-width: 100%;
   max-height: 100%;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
   box-sizing: border-box;
   text-align: center;
   font-size: 16px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.button-container {
-  display: flex;
-  justify-content: space-around;
-  font-size: 16px;
-  margin-top: 20px;
-}
-
-.button-container button {
-  background: transparent;
-  color: #f0f0f0;
-  font-size: 14px;
-}
-
-.button-container button:hover {
-  color: #5900AB;
-}
-
-#score {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #FFF;
-  color: #8250A5;
-  padding: 20px 10px;
-  flex: 2;
 }
 
 #ending-modal .score-label {
@@ -92,16 +57,37 @@
 
 #message {
   margin: 0;
-  flex: 1;
   font-size: 12px;
-  line-height: 39px;
-  border-bottom: 1px dotted rgba(255, 255, 255, 0.15);
+  line-height: 20px;
+  padding: 10px;
 }
 
-#ending-modal .button-container {
-  flex: 1;
+.modal {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 3px;
+}
+
+.modal-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 0;
+  padding: 10px 5px;
+  font-size: 14px;
+  border-top: 1px dotted rgba(255, 255, 255, 0.15);
+}
+
+.modal-body {
+  background: #FFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #FFF;
+  color: #8250A5;
+  flex: 2;
+  font-size: 13px;
 }
