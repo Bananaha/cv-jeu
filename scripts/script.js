@@ -23,7 +23,7 @@ var textMessage = {
   },
   lvl3: {
     notificationText: 'Volet expériences débloqué',
-    endMessage: 'Finger in the nose ! Compétences, Diplômes et Expériences..plus qu\'un seul niveau.'
+    endMessage: 'Fingers in the nose ! Compétences, Diplômes et Expériences..plus qu\'un seul niveau.'
   },
   lvl4: {
     notificationText: 'Volet intérêts débloqué',
@@ -90,17 +90,32 @@ var imagesCount = Object.keys(IMG).length;
 var loadedImagesCount = 0;
 
 for (var key in IMG) {
+  
   var image = new Image();
   image.src = IMG[key];
-  gameImages[key] = image;
+  var imageSize = getImageSize(image);
+  
+  gameImages[key] = {
+    src: image,
+    height: imageSize.height,
+    width: imageSize.width
+  };
+  
+  //gameImages[key].src = image;
   image.onload = function () {
+    
     loadedImagesCount++;
+    
     if (loadedImagesCount === imagesCount) {
+      
       var loader = document.getElementById('rainbow-container');
+      
       loader.style.display = 'none';
       loader.className = 'hide';
       openingModal.className = 'show';
+      
       game = new Game();
+      
       openingModal.style.width = game.getSize().canvasWidth + 'px';
       openingModal.style.height = game.getSize().canvasHeight + 'px';
     }
@@ -109,16 +124,20 @@ for (var key in IMG) {
 
 // Event listeners sur les touches du clavier
 window.addEventListener('keydown', function (event) {
+  
   if (event.key === 'ArrowUp' || event.key === 'ArrowDown' || event.key === 'Shift') {
     event.preventDefault();
   }
+  
   pressedKeys[event.key] = true;
 });
 
 window.addEventListener('keyup', function (event) {
+  
   if (event.key === 'ArrowUp' || event.key === 'ArrowDown' || event.key === 'Shift') {
     event.preventDefault();
   }
+  
   pressedKeys[event.key] = false;
 });
 
@@ -136,6 +155,7 @@ seeUnlockedParts.addEventListener('click', function (event) {
   partsUnlocked[index].className = 'show';
 
   if (partsUnlocked.length > 1) {
+    
     rightArrow.classList.add('show');
     rightArrow.classList.remove('hide');
   }
@@ -210,6 +230,7 @@ restartInEnding.addEventListener('click', function (event) {
   
   endingModalContainer.className = 'hide';
   endingModal.removeAttribute('style');
+  
   game.start();
   
 });
@@ -239,18 +260,23 @@ function getImageSize (element) {
 
 // Affiche la modal de fin de partie
 function showEndModal (config) {
+  
   var scoreParagraph = document.getElementById('score');
   var messageParagraph = document.getElementById('message');
+  
   endingModalContainer.style.width = config.canvasWidth + 'px';
   endingModalContainer.style.height = config.canvasHeight + 'px';
+  
   scoreParagraph.innerHTML = [
     '<span class="score-label">Score:</span>',
     '<span class="score-value">',
     config.newScore.score,
     '</span>'
   ].join('');
+  
   messageParagraph.innerHTML = config.text;
   endingModalContainer.className = 'flex';
+  
   if (partsUnlocked.length === 0) {
     seeUnlockedParts.className = 'hide';
   } else {

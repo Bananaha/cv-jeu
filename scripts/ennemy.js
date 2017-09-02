@@ -1,5 +1,6 @@
 // Contructeur d'ennemis
 function Ennemy (speedCoeff, config) {
+  
   var ENNEMY_IMAGE = [
     gameImages.ennemyBlue,
     gameImages.ennemyPink,
@@ -14,7 +15,7 @@ function Ennemy (speedCoeff, config) {
   // Position x aléatoire dans le canvas
   this.originX = -this.radius;
   this.x = this.originX;
-  this.y = config.random(this.radius, config.canvasHeight);
+  this.y = random(this.radius, config.canvasHeight);
   this.speed = config.speed / (200 / speedCoeff);
   // Défini si la forme s'affiche
   this.life = 1;
@@ -27,17 +28,17 @@ function Ennemy (speedCoeff, config) {
     // Définir les paramètres de l'objet
     this.context.beginPath();
     this.context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
-    if (showDebug) {
-      this.context.lineWidth = 5;
-      this.context.strokeStyle = '#FFFFFF';
-      this.context.stroke();
-    }
-    var x = this.x - getImageSize(ennemyImage).width / 2;
-    var y =  this.y - getImageSize(ennemyImage).height / 2 - 8;
-    this.context.drawImage(ennemyImage, x, y);
+//    if (showDebug) {
+//      this.context.lineWidth = 5;
+//      this.context.strokeStyle = '#FFFFFF';
+//      this.context.stroke();
+//    }
+    var x = this.x - ennemyImage.width / 2;
+    var y =  this.y - ennemyImage.height / 2 - 8;
+    this.context.drawImage(ennemyImage.src, x, y);
     this.context.closePath();
     
-    if (this.x < -getImageSize(ennemyImage).width) {
+    if (this.x < -ennemyImage.width) {
       this.life = 0;
     }
   };

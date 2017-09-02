@@ -54,7 +54,7 @@ function Player (config) {
     }
     
 
-    config.context.drawImage(gameImages.unicorn, this.x - getImageSize(gameImages.unicorn).width / 2, this.y - getImageSize(gameImages.unicorn).height / 2);
+    config.context.drawImage(gameImages.unicorn.src, this.x - gameImages.unicorn.width / 2, this.y - gameImages.unicorn.height / 2);
     // config.context.drawImage(gameImages.unicornSprite, 50, 0, 320, 160, 0, this.y - getImageSize(gameImages.unicorn).height / 2 , 320, 160)
 
     checkEvents.apply(this);

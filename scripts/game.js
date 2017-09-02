@@ -3,7 +3,9 @@ function Game () {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight - 80;
   var ctx = canvas.getContext('2d');
-
+  var fps = 40;
+  var fpsInterval = 1000/fps;
+  var lastDrawDate = Date.now();
   var canvasHeight = canvas.height;
   var canvasWidth = canvas.width;
   var allAmmos;
@@ -42,7 +44,7 @@ function Game () {
   // Affiche les vies du joueur
   function drawLives (source, size) {
     for (var i = 0; i < player.life; i++) {
-      ctx.drawImage(gameImages.heartFull, 30 * i + 10, 45, size, size);
+      ctx.drawImage(gameImages.heartFull.src, 30 * i + 10, 45, size, size);
     };
   };
 
@@ -75,7 +77,7 @@ function Game () {
       speed: SPEED / 2,
       allAmmos: allAmmos,
       launchAmmo: launchAmmo,
-      image: IMG.unicorn
+      image: gameImages.unicorn
     });
   };
 
@@ -89,14 +91,7 @@ function Game () {
         canvasHeight: canvasHeight,
         canvasWidth: canvasWidth,
         speed: SPEED,
-        random: random,
         newScore: newScore,
-        image: {
-          ennemyBlue: IMG.ennemyBlue,
-          ennemyPink: IMG.ennemyPink,
-          ennemyBrown: IMG.ennemyBrown,
-          ennemyYellow: IMG.ennemyYellow
-        },
         gameStage: gameStage
       }));
     }
@@ -108,8 +103,8 @@ function Game () {
       array.push(new Ammo(x, y, direction, {
         ctx: ctx,
         speed: SPEED,
-        shotCircle: IMG.shotCircle,
-        shotRainbow: IMG.shotRainbow,
+        shotCircle: gameImages.shotCircle.src,
+        shotRainbow: gameImages.shotRainbow.src,
         parent: shooter
       }));
     }
@@ -123,14 +118,22 @@ function Game () {
   };
 
   function draw () {
-    var lastFrameDate = Date.now();
+    var currentDate = Date.now();
+    
+    if (currentDate - lastDrawDate < fpsInterval) {
+      window.requestAnimationFrame(draw);
+      return
+    }
+    
+    lastDrawDate = currentDate;
+    
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-    background.render();
+    background.render(currentDate);
+    
     if (!started) {
       window.requestAnimationFrame(draw);
       return
     }
-
     // Gérer la collision player vs Ennemis
     handleCollision(player, ennemies);
     // Gérer la collision player vs ammo ennemis
@@ -173,33 +176,26 @@ function Game () {
           shotSpeed: shotSpeed,
           rank: gameStage,
           onDead(bossLevel) {
-            console.log('bossLevel ',bossLevel)
             switch (bossLevel) {
               case 1:
                 partsUnlocked.push(skillsPart);
                 result = textMessage.lvl1.endMessage;
-                console.log(textMessage.lvl1.notificationText);
                 showNotification(textMessage.lvl1.notificationText);
                 break;
               case 2:
-                console.log(textMessage.lvl2);
                 partsUnlocked.push(degreesPart);
                 result = textMessage.lvl2.endMessage;
                 showNotification(textMessage.lvl2.notificationText);
-                
-                console.log(textMessage.lvl2.notificationText);
                 break;
               case 3:
                 partsUnlocked.push(experiencesPart);
                 result = textMessage.lvl3.endMessage;
                 showNotification(textMessage.lvl3.notificationText);
-                console.log(textMessage.lvl3.notificationText);
                 break;
               case 4:
                 partsUnlocked.push(likesPart);
                 result = textMessage.lvl4.endMessage;
                 showNotification(textMessage.lvl4.notificationText);
-                console.log(textMessage.lvl4.notificationText);
                 break;
               default:
                 result = textMessage.lvl0.endMessage;
@@ -211,10 +207,8 @@ function Game () {
           canvasHeight: canvasHeight,
           canvasWidth: canvasWidth,
           speed: SPEED,
-          gameStage: gameStage,
           BOSS_MAXY: BOSS_MAXY,
           allAmmos: allAmmos,
-          random: random,
           launchAmmo: launchAmmo,
           newScore: newScore
         }));
@@ -236,7 +230,7 @@ function Game () {
     
     // dès que le palier est atteint, on arrête la production d'ennemis mais on continue le rendu des ennemis déjà générés.
     if (bosses.length === 0) {
-      createEnnemies(lastFrameDate, gameStage);
+      createEnnemies(lastDrawDate, gameStage);
       createBoss = false;
     } else {
       bosses.forEach(function (boss) {
@@ -252,7 +246,7 @@ function Game () {
 
     // Affiche le score et la nombre de vies de la partie en cours
     drawText(10, 30, 'Score: ' + newScore.score, 16, colors.text);
-    drawLives(IMG.heartFull, 20);
+    drawLives(gameImages.heartFull, 20);
 
     window.requestAnimationFrame(draw);
   };

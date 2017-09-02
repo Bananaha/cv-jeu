@@ -12,11 +12,6 @@ function Ammo (x, y, sens, config) {
   
   var image = config.parent === 'player' ? gameImages.shotCircle : gameImages.shotBoss;
   
-  var imageSize = {
-    width: getImageSize(image).width,
-    height: getImageSize(image).height
-  };
-  
   this.render = function () {
     // Definir le changement de position Y à partir de la génération de l'objet - postion initiale - durée * vitesse
     this.renderDate = Date.now();
@@ -29,16 +24,16 @@ function Ammo (x, y, sens, config) {
     }
     this.context.closePath();
     if (config.parent === 'player') {
-      this.context.drawImage(gameImages.shotRainbow, this.x - getImageSize(gameImages.shotRainbow).width, this.y - (imageSize.height - getImageSize(gameImages.shotRainbow).height) / 2 - 2);
-      this.context.drawImage(gameImages.shotCircle, this.x - imageSize.width / 2 + 3, this.y - imageSize.height / 2 + 3);
+      this.context.drawImage(gameImages.shotRainbow.src, this.x - gameImages.shotRainbow.width, this.y - (image.height - gameImages.shotRainbow.height) / 2 - 2);
+      this.context.drawImage(gameImages.shotCircle.src, this.x - image.width / 2 + 3, this.y - image.height / 2 + 3);
       
-      if (this.x > config.canvasWidth + imageSize.width / 2 + getImageSize(gameImages.shotRainbow).width) {
+      if (this.x > config.canvasWidth + image.width / 2 + gameImages.shotRainbow.width) {
         this.life = 0;
       }
     } else {
-      this.context.drawImage(gameImages.shotBoss, this.x + (this.radius * 1.5) - (imageSize.width / 2) + 4, this.y - imageSize.height / 2 + 3);
+      this.context.drawImage(gameImages.shotBoss.src, this.x + (this.radius * 1.5) - (image.width / 2) + 4, this.y - image.height / 2 + 3);
       
-      if (this.x < - imageSize.width) {
+      if (this.x < - image.width) {
         this.life = 0;
       }
     }
