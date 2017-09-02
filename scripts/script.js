@@ -1,4 +1,4 @@
-var showDebug = false;
+var showDebug = true;
 var game;
 var colors = {
   ammo: '#e74444',

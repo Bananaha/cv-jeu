@@ -8,10 +8,10 @@ function Background (config) {
 
   var PARAMS_BY_IMAGE = {
     mountainBack: {
-      velocity: 0.01,
+      velocity: 0.01
     },
     mountainMiddle: {
-      velocity: 0.014,
+      velocity: 0.014
     },
     cloud1: {
       velocity: 0.02,
@@ -20,7 +20,7 @@ function Background (config) {
       spaceBetween: 850
     },
     mountainFront: {
-      velocity: 0.03,
+      velocity: 0.03
     },
     forestBack: {
       velocity: 0.05,
@@ -35,7 +35,7 @@ function Background (config) {
       yOffset: 10
     },
     hillFront: {
-      velocity: 0.1,
+      velocity: 0.1
     },
     cloud2: {
       velocity: 0.031,
@@ -147,7 +147,6 @@ function Background (config) {
     
     // Affichage des assets du background
     var spentTime = renderDate - creationDate;
-    //repeatImage(backgroundImages.cloud4, spentTime);
     
     for (key in PARAMS_BY_IMAGE) {
       repeatImage(backgroundImages[key], spentTime);

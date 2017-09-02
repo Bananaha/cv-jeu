@@ -1,6 +1,18 @@
 //  Constructeur du joueur
 function Player (config) {
   var shotDate;
+  var yPosSprite = [
+    0,
+    80,
+    160,
+    240,
+    320,
+    400,
+    480,
+    560
+  ];
+  var index = 0;
+  
   var RAINBOWCOLORS = [
     '#e36759',
     '#f2a942',
@@ -13,21 +25,23 @@ function Player (config) {
   
   var UNICORN_Y = [0, 160, 320, 480, 640, 800, 960, 1120];
   //  Défini la position initiale du joueur
-  this.radius = 50;
-  this.x = this.radius * 2;
+  this.radius = 40;
+  this.x = this.radius * 2.5;
   this.y = config.canvasHeight / 2;
 
   var rainbowWidth = this.x + 5;
   var rainbowParticulesWidth = 2;
-  var rainbowParticulesHeight = 12;
+  var rainbowParticulesHeight = 5;
   var rainbowParticules = [];
   for (var i = 0; i < rainbowWidth; i += rainbowParticulesWidth) {
     rainbowParticules.push(this.y);
   }
+  var lastRenderDate = Date.now();
   // Défini si la forme s'affiche
   this.life = 3;
   
   this.render = function () {
+    var renderDate = Date.now();
     config.context.beginPath();
     config.context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
     if (showDebug) {
@@ -37,7 +51,7 @@ function Player (config) {
     }
     config.context.closePath();
 
-    rainbowParticules.push(this.y);
+    rainbowParticules.push(this.y + 30);
     rainbowParticules.shift();
 
     for (var colorIndex = 0; colorIndex < RAINBOWCOLORS.length; colorIndex++) {
@@ -53,9 +67,30 @@ function Player (config) {
       }
     }
     
-
-    config.context.drawImage(gameImages.unicorn.src, this.x - gameImages.unicorn.width / 2, this.y - gameImages.unicorn.height / 2);
-    // config.context.drawImage(gameImages.unicornSprite, 50, 0, 320, 160, 0, this.y - getImageSize(gameImages.unicorn).height / 2 , 320, 160)
+    if(renderDate - lastRenderDate > 50) {
+      
+      lastRenderDate = renderDate;
+      if (index < yPosSprite.length - 1) {
+        
+        index++;
+        
+      } else {
+        
+        index = 0;
+        
+      }
+    }
+        
+    config.context.drawImage(
+      gameImages.unicornSprite.src, 
+      0, 
+      yPosSprite[index], 
+      160, 
+      80, 
+      this.x - 90, 
+      this.y - 40, 
+      160, 
+      80)
 
     checkEvents.apply(this);
   };
