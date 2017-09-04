@@ -36,9 +36,9 @@ function Game () {
   };
   // Affiche le score du joueur
   function drawText (x, y, text, fontSize, color) {
-    ctx.font = fontSize + 'px Roboto';
+    ctx.font = fontSize + 'px Satisfy';
     ctx.textAlign = 'left';
-    ctx.fillStyle = colors.text;
+    ctx.fillStyle = color;
     ctx.fillText(text, x, y);
   };
   // Affiche les vies du joueur
@@ -119,9 +119,10 @@ function Game () {
 
   function draw () {
     var currentDate = Date.now();
-    
-    if (currentDate - lastDrawDate < fpsInterval) {
-      window.requestAnimationFrame(draw);
+
+    if (hasRequestAnimationFrame && currentDate - lastDrawDate < fpsInterval) {
+      requestAnimation(draw);
+      // window.requestAnimationFrame(draw);
       return
     }
     
@@ -129,9 +130,10 @@ function Game () {
     
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
     background.render(currentDate);
-    
+
     if (!started) {
-      window.requestAnimationFrame(draw);
+      requestAnimation(draw);
+      // window.requestAnimationFrame(draw);
       return
     }
     // Gérer la collision player vs Ennemis
@@ -175,7 +177,7 @@ function Game () {
         bosses.push(new Boss({
           shotSpeed: shotSpeed,
           rank: gameStage,
-          onDead(bossLevel) {
+          onDead: function(bossLevel) {
             switch (bossLevel) {
               case 1:
                 partsUnlocked.push(skillsPart);
@@ -224,7 +226,8 @@ function Game () {
         text: result
       });
       started = false;
-      window.requestAnimationFrame(draw);
+      requestAnimation(draw);
+      // window.requestAnimationFrame(draw);
       return;
     }
     
@@ -245,10 +248,10 @@ function Game () {
     });
 
     // Affiche le score et la nombre de vies de la partie en cours
-    drawText(10, 30, 'Score: ' + newScore.score, 16, colors.text);
+    drawText(10, canvasHeight - 30, newScore.score, 24, 'white');
     drawLives(gameImages.heartFull, 20);
-
-    window.requestAnimationFrame(draw);
+    requestAnimation(draw);
+    // window.requestAnimationFrame(draw);
   };
 
   this.start = function () {

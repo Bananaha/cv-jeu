@@ -1,10 +1,6 @@
 var showDebug = true;
 var game;
-var colors = {
-  ammo: '#e74444',
-  boss: '#ddf525',
-  text: '#505050'
-};
+
 var pressedKeys = {};
 var partsUnlocked = [];
 var index = 0;
@@ -63,6 +59,14 @@ var IMG = {
   unicornSprite: './assets/unicorn-sprite.png'
 };
 
+
+// forcer le boolean / hasRequestAnimationFrame = true
+var hasRequestAnimationFrame = !!window.requestAnimationFrame;
+
+var requestAnimation = hasRequestAnimationFrame ? window.requestAnimationFrame : function timeout(callback) {
+  setTimeout(callback, 25);
+};
+
 var openingModal = document.getElementById('opening-modal');
 var startGameButton = document.getElementById('start-game-button');
 var skipGameButton = document.getElementById('skip-game-button');
@@ -90,56 +94,82 @@ var imagesCount = Object.keys(IMG).length;
 var loadedImagesCount = 0;
 
 for (var key in IMG) {
-  
+
   var image = new Image();
   image.src = IMG[key];
-  var imageSize = getImageSize(image);
-  
-  gameImages[key] = {
-    src: image,
-    height: imageSize.height,
-    width: imageSize.width
-  };
-  
-  //gameImages[key].src = image;
-  image.onload = function () {
-    
+  image.onload = onImageLoad(key, image);
+
+}
+
+function onImageLoad(key, image) {
+
+  return function() {
     loadedImagesCount++;
-    
+    var imageSize = getImageSize(image);
+    gameImages[key] = {
+      src: image,
+      height: imageSize.height,
+      width: imageSize.width
+
+    };
+
     if (loadedImagesCount === imagesCount) {
-      
+
       var loader = document.getElementById('rainbow-container');
       
       loader.style.display = 'none';
       loader.className = 'hide';
       openingModal.className = 'show';
-      
+
       game = new Game();
-      
       openingModal.style.width = game.getSize().canvasWidth + 'px';
       openingModal.style.height = game.getSize().canvasHeight + 'px';
+
     }
   }
 }
 
 // Event listeners sur les touches du clavier
-window.addEventListener('keydown', function (event) {
+
+window.addEventListener("keydown", function (event) {
+
+  if (event.key !== undefined) {
+    console.log(event.key)
+    if (event.key === 'ArrowUp' || event.key === 'ArrowDown' || event.key === ' ' || event.key === 'Up' || event.key === 'Down') { 
+      event.preventDefault();
+    }
+    pressedKeys[event.key] = true;
   
-  if (event.key === 'ArrowUp' || event.key === 'ArrowDown' || event.key === 'Shift') {
-    event.preventDefault();
+  } else if (event.keyCode !== undefined) {
+    console.log(event.keyCode)
+    if (event.keyCode === 38 || event.keyCode === 40 || event.keyCode === 32) { 
+      event.preventDefault();
+    }
+    pressedKeys[event.keyCode] = true;
+
   }
-  
-  pressedKeys[event.key] = true;
-});
+}, true);
+
+
 
 window.addEventListener('keyup', function (event) {
   
-  if (event.key === 'ArrowUp' || event.key === 'ArrowDown' || event.key === 'Shift') {
-    event.preventDefault();
+  if (event.key !== undefined) {
+    
+    if (event.key === 'ArrowUp' || event.key === 'ArrowDown' || event.key === ' ' || event.key === 'Up' || event.key === 'Down') { 
+      event.preventDefault();
+    }
+    pressedKeys[event.key] = false;
+
+  } else if (event.keyCode !== undefined) {
+    
+    if (event.keyCode === '38' || event.keyCode === '40' || event.keyCode === '32') { 
+      event.preventDefault();
+    }
+    pressedKeys[event.keyCode] = false;
+
   }
-  
-  pressedKeys[event.key] = false;
-});
+}, true);
 
 seeUnlockedParts.addEventListener('click', function (event) {
   
@@ -150,16 +180,9 @@ seeUnlockedParts.addEventListener('click', function (event) {
   
   gallery.style.width = game.getSize().canvasWidth + 'px';
   gallery.style.height = game.getSize().canvasHeight + 'px';
-  gallery.className = 'flex';
+  gallery.className = 'show';
 
   partsUnlocked[index].className = 'show';
-
-  if (partsUnlocked.length > 1) {
-    
-    rightArrow.classList.add('show');
-    rightArrow.classList.remove('hide');
-  }
-  
   partIndex.innerHTML = [
     '<span class="gallery-current-page">',
     index + 1,
@@ -167,29 +190,53 @@ seeUnlockedParts.addEventListener('click', function (event) {
     '<span class="gallery-pages-count">/',
     partsUnlocked.length,
     '</span>'
-  ].join('')
-  
-});
+  ].join('');
+
+  if (partsUnlocked.length > 1) {
+
+    changeClassName(rightArrow, 'show');
+
+  } else {
+
+    changeClassName(rightArrow, 'hide');
+
+  }
+}, false);
 
 rightArrow.addEventListener('click', function () {
+
   partsUnlocked[index].className = 'hide';
   
   if (index < partsUnlocked.length - 1) {
+
     index++;
   } else {
+
     index = 0;
   }
   
   partsUnlocked[index].className = 'show';
   
   if (index > 0) {
-    leftArrow.classList.add('show');
-    leftArrow.classList.remove('hide');
+
+    changeClassName(leftArrow, 'show');
+
+  } else {
+
+    changeClassName(leftArrow, 'hide');    
+
   }
   
   partIndex.innerHTML = index + 1 + " / " + partsUnlocked.length;
   
-});
+}, false);
+
+function changeClassName (element, addedClass) {
+  var stringToArray = element.className.split(' ');
+  stringToArray.splice(stringToArray.length - 1, 1, 'addedClass');
+  var arrayToString = stringToArray.join(' ');
+  element.className = arrayToString;
+}
 
 leftArrow.addEventListener('click', function () {
   
@@ -203,14 +250,9 @@ leftArrow.addEventListener('click', function () {
   
   partsUnlocked[index].className = 'show';
   
-  if (index > 0) {
-    leftArrow.classList.add('show');
-    leftArrow.classList.remove('hide');
-  }
-  
   partIndex.innerHTML = index + 1 + " / " + partsUnlocked.length;
   
-});
+}, false);
 
 startGameButton.addEventListener('click', function () {
   
@@ -220,7 +262,8 @@ startGameButton.addEventListener('click', function () {
     skipGameButton.removeAttribute('style');
     
     game.start()
-});
+
+}, false);
 
 // Relance une partie
 // depuis la modal de fin de jeu
@@ -233,7 +276,7 @@ restartInEnding.addEventListener('click', function (event) {
   
   game.start();
   
-});
+}, false);
 // depuis l'écran des parties du cv remportées
 restartInGallery.addEventListener('click', function (event) {
   
@@ -243,8 +286,8 @@ restartInGallery.addEventListener('click', function (event) {
   gallery.removeAttribute('show');
   
   game.start();
-});
 
+}, false);
 
 // Génère une position X aléatoire
 function random (min, max) {
@@ -292,3 +335,31 @@ function showNotification (message) {
     inGameMessage.className = 'hide';
   }, 3000);
 };
+
+
+// Browser detection scr : https://stackoverflow.com/questions/5916900/how-can-you-detect-the-version-of-a-browser
+function get_browser() {
+  var ua=navigator.userAgent,tem,M=ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || []; 
+  if(/trident/i.test(M[1])){
+      tem=/\brv[ :]+(\d+)/g.exec(ua) || []; 
+      return {name:'IE',version:(tem[1]||'')};
+      }   
+  if(M[1]==='Chrome'){
+      tem=ua.match(/\bOPR|Edge\/(\d+)/)
+      if(tem!=null)   {return {name:'Opera', version:tem[1]};}
+      }   
+  M=M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
+  if((tem=ua.match(/version\/(\d+)/i))!=null) {M.splice(1,1,tem[1]);}
+  return {
+    name: M[0],
+    version: M[1]
+  };
+}
+
+var browser=get_browser();
+
+if(browser.name === 'Firefox' && browser.version < 38 || browser.name === 'Chrome' && browser.version < 29) {
+  document.getElementsByTagName('html')[0].className = 'ie';
+}
+
+console.log(browser.version)

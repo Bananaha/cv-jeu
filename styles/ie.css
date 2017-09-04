@@ -1,0 +1,122 @@
+.ie header {
+  display: block;
+}
+
+.ie  h1 {
+  display: inline-block;
+  margin-top: 0.3em;
+}
+
+.ie .actions-list-ie {
+  display: inline-block;
+  position: fixed;
+  right: 12px;
+  top: -5px;
+}
+
+.ie .actions-list li {
+  display: inline-block;
+}
+
+.ie #game-container {
+  position: absolute;
+  left: 0;
+  top: 40px;
+  bottom: 0;
+  right: 0;
+}
+
+.ie .actions-list-big-ie {
+  text-align: center;
+  position: relative;
+}
+
+.ie #ending-modal-container,
+.ie #ending-modal {
+  position: relative;
+}
+
+.ie #ending-modal,
+.ie .rainbow,
+.ie .actions-list-big-ie {
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%) translateX(-50%); ;
+  left: 50%;
+}
+
+.ie .modal-footer-ie {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  padding: 10px 0;
+  height: 38px
+}
+
+.ie .gallery-skills:before, 
+.ie .gallery-skills:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.ie .gallery-skills ul {
+  float: left;
+}
+
+.ie .modal-footer {
+  width: 100%;
+  padding: 10px 0;
+}
+
+.ie .modal-footer a,
+.ie .modal-footer div,
+.ie .modal-footer button{
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  width: 32%;
+}
+
+.ie .gallery-inner {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ie .gallery-nav-button {
+  top: 0;
+  margin-top: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

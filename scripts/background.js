@@ -81,6 +81,13 @@ function Background (config) {
       realWidth: realWidth,
       crossCounter: 0
     }
+    if (backgroundImages[key].occurrence === Infinity) {
+      console.log(key, backgroundImages[key]);
+      console.log('config.canvasWidth', config.canvasWidth);
+      console.log('realWidth', realWidth);
+      console.log(' gameImages[key].width',  gameImages[key].width)
+      console.log('(PARAMS_BY_IMAGE[key].spaceBetween || 0)', (PARAMS_BY_IMAGE[key].spaceBetween || 0));
+    }
   }
   
   var randomElements = [];
@@ -111,11 +118,9 @@ function Background (config) {
 
   function repeatImage (asset, date) {
     for (var i = 0; i < asset.occurrence; i++ ) {
-      
       var x = asset.x + asset.xOffset + asset.realWidth * i;
       config.context.drawImage(asset.image, x, config.canvasHeight - asset.height - asset.yOffset);
     }
-
     asset.x = date * -asset.velocity + asset.crossCounter * asset.realWidth;
 
     if(asset.x <= -asset.realWidth) {
@@ -125,7 +130,6 @@ function Background (config) {
     
   this.render = function (renderDate) {
     // Background colors(sky)
-    
     this.context.fillStyle = gradientBlue;
     this.context.fillRect(0, 0, config.canvasWidth, config.canvasHeight);
 
@@ -134,7 +138,7 @@ function Background (config) {
 
     this.context.fillStyle = gradientPink;
     this.context.fillRect(0, config.canvasHeight - pinkBackgroundHeight - pinkGradientBackgroundHeight, config.canvasWidth, pinkGradientBackgroundHeight);
-    
+
     // Random element
     randomElements.forEach(function (element) {
       if(!element.draw) {
@@ -142,12 +146,11 @@ function Background (config) {
       } else {
         element.draw();
       }
-    })
-    
+    });    
     
     // Affichage des assets du background
     var spentTime = renderDate - creationDate;
-    
+
     for (key in PARAMS_BY_IMAGE) {
       repeatImage(backgroundImages[key], spentTime);
     }
