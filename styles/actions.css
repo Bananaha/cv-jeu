@@ -84,6 +84,11 @@ button:focus {
 
 .actions-list-big > li {
     padding: 12px 0;
+    min-width: 170px;
+}
+
+.actions-list-big > li:first-child {
+    text-align: right;
 }
 
 .actions-list-big > li + li {
