@@ -131,3 +131,4 @@ function Player (config) {
     this.life -= 1;
   };
 };
+

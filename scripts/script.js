@@ -361,5 +361,3 @@ var browser=get_browser();
 if(browser.name === 'Firefox' && browser.version < 38 || browser.name === 'Chrome' && browser.version < 29) {
   document.getElementsByTagName('html')[0].className = 'ie';
 }
-
-console.log(browser.version)
