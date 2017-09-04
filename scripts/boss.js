@@ -16,7 +16,7 @@ var Boss = function (config) {
   this.y = config.canvasHeight / 2;
   this.speed = config.speed / 200;
   // Défini si la forme s'affiche
-  this.life = 1;
+  this.life = 10;
   
   this.creationDate = Date.now();
   this.rank = config.rank;
@@ -32,27 +32,9 @@ var Boss = function (config) {
     // Définir les paramètres de l'objet
     this.context.beginPath();
     this.context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
-//    if (showDebug) {
-//     this.context.lineWidth = 5;
-//      this.context.strokeStyle = '#003300';
-//     this.context.stroke();
-//    }
     this.context.closePath();
     this.context.drawImage(bossImage.src, this.x - bossImage
     .width / 2, this.y - bossImage.height / 2);
-  //  if (showDebug) {
-  //    this.context.lineWidth = 2;
-  //    this.context.strokeStyle = '#FF0000';
-  //    this.context.stroke();
-  //    this.context.beginPath();
-  //    this.context.moveTo(0, this.y - this.radius);
-  //    this.context.lineTo(1000, this.y - this.radius);
-  //    this.context.stroke();     
-  //    this.context.beginPath();
-  //    this.context.moveTo(0, this.y + this.radius);
-  //    this.context.lineTo(1000, this.y + this.radius);
-  //    this.context.stroke();
-  //  }
     checkForShot.apply(this);
   };
   

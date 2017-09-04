@@ -1,4 +1,3 @@
-var showDebug = true;
 var game;
 
 var pressedKeys = {};
@@ -93,12 +92,11 @@ var gameImages = {};
 var imagesCount = Object.keys(IMG).length;
 var loadedImagesCount = 0;
 
+// lancement du jeu dès que l'ensemble des images sont chargées
 for (var key in IMG) {
-
   var image = new Image();
   image.src = IMG[key];
   image.onload = onImageLoad(key, image);
-
 }
 
 function onImageLoad(key, image) {
@@ -134,14 +132,14 @@ function onImageLoad(key, image) {
 window.addEventListener("keydown", function (event) {
 
   if (event.key !== undefined) {
-    console.log(event.key)
+
     if (event.key === 'ArrowUp' || event.key === 'ArrowDown' || event.key === ' ' || event.key === 'Up' || event.key === 'Down') { 
       event.preventDefault();
     }
     pressedKeys[event.key] = true;
   
   } else if (event.keyCode !== undefined) {
-    console.log(event.keyCode)
+
     if (event.keyCode === 38 || event.keyCode === 40 || event.keyCode === 32) { 
       event.preventDefault();
     }
@@ -171,6 +169,7 @@ window.addEventListener('keyup', function (event) {
   }
 }, true);
 
+// Bouton permettant de consulter les parties du cv
 seeUnlockedParts.addEventListener('click', function (event) {
   
   event.preventDefault();
@@ -203,6 +202,8 @@ seeUnlockedParts.addEventListener('click', function (event) {
   }
 }, false);
 
+
+// Flèche de navigation de la galerie
 rightArrow.addEventListener('click', function () {
 
   partsUnlocked[index].className = 'hide';
@@ -260,7 +261,7 @@ startGameButton.addEventListener('click', function () {
     
     startGameButton.removeAttribute('style');
     skipGameButton.removeAttribute('style');
-    
+    startGameButton.blur();
     game.start()
 
 }, false);
@@ -277,6 +278,7 @@ restartInEnding.addEventListener('click', function (event) {
   game.start();
   
 }, false);
+
 // depuis l'écran des parties du cv remportées
 restartInGallery.addEventListener('click', function (event) {
   
@@ -359,5 +361,5 @@ function get_browser() {
 var browser=get_browser();
 
 if(browser.name === 'Firefox' && browser.version < 38 || browser.name === 'Chrome' && browser.version < 29) {
-  document.getElementsByTagName('html')[0].className = 'ie';
+  document.getElementsByTagName('html')[0].className = 'old-browsers';
 }

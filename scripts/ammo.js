@@ -18,10 +18,7 @@ function Ammo (x, y, sens, config) {
     this.x = this.originX - (sens * (this.renderDate - this.creationDate)) * this.speed;
     this.context.beginPath();
     this.context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
-    if (showDebug) {
-      this.context.strokeStyle = '#FFFFFF';
-      this.context.stroke();
-    }
+
     this.context.closePath();
     if (config.parent === 'player') {
       this.context.drawImage(gameImages.shotRainbow.src, this.x - gameImages.shotRainbow.width, this.y - (image.height - gameImages.shotRainbow.height) / 2 - 2);

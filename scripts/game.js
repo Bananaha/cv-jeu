@@ -17,7 +17,7 @@ function Game () {
   var createBoss;
   var newScore;
   var started = false;
-  var ennemiesByStage = 1;
+  var ennemiesByStage = 20;
 
   var BOSS_MAXY = canvasWidth;
   var SPEED = 20;
@@ -43,11 +43,18 @@ function Game () {
   };
   // Affiche les vies du joueur
   function drawLives (source, size) {
-    for (var i = 0; i < player.life; i++) {
-      ctx.drawImage(gameImages.heartFull.src, 30 * i + 10, 45, size, size);
+    var playerLives =  3;
+    var livesLost = 3 
+    
+    for (var i = 0; i < playerLives; i++) {
+      ctx.drawImage(gameImages.heartEmpty.src, 30 * i + 30, 30, size, size);
+      if(player.life > i) {
+        ctx.drawImage(gameImages.heartFull.src, 30 * i + 30, 30, size, size);
+      }
     };
   };
 
+  // Gestion de la collision
   function checkCollision (element1, element2) {
     var distanceX = element1.x - element2.x;
     var distanceY = element1.y - element2.y;
@@ -120,20 +127,21 @@ function Game () {
   function draw () {
     var currentDate = Date.now();
 
+    // Gestion des fps
     if (hasRequestAnimationFrame && currentDate - lastDrawDate < fpsInterval) {
       requestAnimation(draw);
-      // window.requestAnimationFrame(draw);
       return
     }
     
     lastDrawDate = currentDate;
     
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+    // Rendu du Background
     background.render(currentDate);
 
+    //Si le jeu n'est pas lancé, relancer draw
     if (!started) {
       requestAnimation(draw);
-      // window.requestAnimationFrame(draw);
       return
     }
     // Gérer la collision player vs Ennemis
@@ -178,6 +186,7 @@ function Game () {
           shotSpeed: shotSpeed,
           rank: gameStage,
           onDead: function(bossLevel) {
+            // Message de fin et parties débloquées générées par la mort des boss
             switch (bossLevel) {
               case 1:
                 partsUnlocked.push(skillsPart);
@@ -218,6 +227,7 @@ function Game () {
       }
     }
     
+    // Lorsque le joueur n'a plus de vie ou que le jeu est terminé, permettre l'accès au cv ou au redemarrage du jeu
     if (player.life <= 0 || (gameStage === 5 && bosses.length === 0)) {
       showEndModal({
         canvasWidth: canvasWidth,
@@ -227,7 +237,6 @@ function Game () {
       });
       started = false;
       requestAnimation(draw);
-      // window.requestAnimationFrame(draw);
       return;
     }
     
@@ -248,12 +257,11 @@ function Game () {
     });
 
     // Affiche le score et la nombre de vies de la partie en cours
-    drawText(10, canvasHeight - 30, newScore.score, 24, 'white');
+    drawText(30, canvasHeight - 30, newScore.score, 40, 'white');
     drawLives(gameImages.heartFull, 20);
     requestAnimation(draw);
-    // window.requestAnimationFrame(draw);
   };
-
+  // réinitialisation des variables du jeu
   this.start = function () {
     allAmmos = {
       player: [],

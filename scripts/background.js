@@ -81,13 +81,6 @@ function Background (config) {
       realWidth: realWidth,
       crossCounter: 0
     }
-    if (backgroundImages[key].occurrence === Infinity) {
-      console.log(key, backgroundImages[key]);
-      console.log('config.canvasWidth', config.canvasWidth);
-      console.log('realWidth', realWidth);
-      console.log(' gameImages[key].width',  gameImages[key].width)
-      console.log('(PARAMS_BY_IMAGE[key].spaceBetween || 0)', (PARAMS_BY_IMAGE[key].spaceBetween || 0));
-    }
   }
   
   var randomElements = [];

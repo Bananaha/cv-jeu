@@ -28,11 +28,7 @@ function Ennemy (speedCoeff, config) {
     // Définir les paramètres de l'objet
     this.context.beginPath();
     this.context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
-//    if (showDebug) {
-//      this.context.lineWidth = 5;
-//      this.context.strokeStyle = '#FFFFFF';
-//      this.context.stroke();
-//    }
+
     var x = this.x - ennemyImage.width / 2;
     var y =  this.y - ennemyImage.height / 2 - 8;
     this.context.drawImage(ennemyImage.src, x, y);

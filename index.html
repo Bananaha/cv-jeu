@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 
 <!--[if IE]>
-  <html class="ie">
+  <html class="old-browsers">
 <![endif]-->
   <html>
 <!--[endif]-->
   <head>
     <meta charset="utf-8">
     <title>Claire POYO - JS Fullstack developer</title>
+    <!--[if IE]><link rel="icon" type="image/x-icon" href="./assets/favicon.ico" /><![endif]-->
+    <link rel="icon" type="image/png" href="./assets/favicon-32x32.png"/>
     <link href="https://fonts.googleapis.com/css?family=Satisfy" rel="stylesheet">
     <link rel="stylesheet" href="./styles/reset.css">
     <link rel="stylesheet" href="./vendors/font-awesome/font-awesome.min.css">
@@ -17,14 +19,13 @@
     <link rel="stylesheet" href="./styles/modals.css">
     <link rel="stylesheet" href="./styles/loader.css"/>
     <link rel="stylesheet" href="./styles/cv.css">
-    <link rel="stylesheet" href="./styles/ie.css">
-    <link rel="stylesheet" href="./styles/notFlex.css">
+    <link rel="stylesheet" href="./styles/old-browsers.css">
   </head>
   <body>
     
     <header class="header">
       <h1>Claire Poyo</h1>
-      <ul class="header-links actions-list actions-list-ie">
+      <ul class="header-links actions-list actions-list-old-browsers">
         <li>
           <a class="action-underlined action-underlined-small" target="_blank" href="https://www.linkedin.com/in/claire-poyo/">
             Linkedin
@@ -168,7 +169,7 @@
       </div>
       
       <div id="opening-modal" class='hide'>
-        <ul class="actions-list actions-list-big actions-list-big-ie">
+        <ul class="actions-list actions-list-big actions-list-big-old-browsers">
           <li>
             <button class="opening-modal-action action-underlined" id="start-game-button" type="button">Jouer</button>
           </li>
@@ -176,6 +177,12 @@
             <a class="opening-modal-action action-underlined" id="skip-game-button" href="assets/CV_Claire_POYO" download="CV_Claire_POYO">Télécharger mon cv</a>
           </li>
         </ul>
+        <div class="rules">
+          <h2>Comment jouer ?</h2>
+          <p>Flèche du haut pour monter</p>
+          <p>Flèche du bas pour descendre</p>
+          <p>Espace pour tirer</p>
+        </div>
       </div>
       
       <div id="ending-modal-container" class="hide">
@@ -184,7 +191,7 @@
             <div id="score"></div>
           </div>
           <p id="message"></p>
-          <div class="modal-footer modal-footer-ie">
+          <div class="modal-footer modal-footer-old-browsers">
             <button id="restart-in-ending" type="button"><i class="fa fa-refresh fa-2x fa-fw" aria-hidden="true" title="Recommencer"></i></button>
             <button id="parts-unlocked" type="button" class="action-underlined">Voir les parties débloquées</button>
             <a class="icon-like" href="assets/CV_Claire_POYO.pdf" download="CV_Claire_POYO">CV</a>

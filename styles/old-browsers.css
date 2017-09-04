@@ -1,0 +1,125 @@
+.old-browsers header {
+  display: block;
+}
+
+.old-browsers  h1 {
+  display: inline-block;
+  margin-top: 0.3em;
+}
+
+.old-browsers .actions-list-old-browsers {
+  display: inline-block;
+  position: fixed;
+  right: 12px;
+  top: -5px;
+}
+
+.old-browsers .actions-list li {
+  display: inline-block;
+}
+
+.old-browsers #game-container {
+  position: absolute;
+  left: 0;
+  top: 40px;
+  bottom: 0;
+  right: 0;
+}
+
+.old-browsers .actions-list-big-old-browsers {
+  text-align: center;
+  position: relative;
+}
+
+.old-browsers #ending-modal-container,
+.old-browsers #ending-modal {
+  position: relative;
+}
+
+.old-browsers #ending-modal,
+.old-browsers .rainbow,
+.old-browsers .actions-list-big-old-browsers {
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%) translateX(-50%);
+  -webkit-transform: translateY(-50%) translateX(-50%);
+  -moz-transform: translateY(-50%) translateX(-50%);
+  left: 50%;
+}
+
+.old-browsers .modal-footer-old-browsers {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  padding: 10px 0;
+  height: 38px
+}
+
+.old-browsers .gallery-skills:before, 
+.old-browsers .gallery-skills:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.old-browsers .gallery-skills ul {
+  float: left;
+  width: 50%;
+}
+
+.old-browsers .modal-footer {
+  width: 100%;
+  padding: 10px 0;
+}
+
+.old-browsers .modal-footer a,
+.old-browsers .modal-footer div,
+.old-browsers .modal-footer button{
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  width: 32%;
+}
+
+.old-browsers .gallery-inner {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.old-browsers .gallery-nav-button {
+  top: 0;
+  margin-top: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

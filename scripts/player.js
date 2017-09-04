@@ -1,6 +1,6 @@
 //  Constructeur du joueur
 function Player (config) {
-  console.log('in player');
+
   var shotDate;
   var yPosSprite = [
     0,
@@ -45,11 +45,6 @@ function Player (config) {
     var renderDate = Date.now();
     config.context.beginPath();
     config.context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
-    if (showDebug) {
-      config.context.lineWidth = 5;
-      config.context.strokeStyle = '#FF0000';
-      config.context.stroke();
-    }
     config.context.closePath();
 
     rainbowParticules.push(this.y + 30);
@@ -102,27 +97,24 @@ function Player (config) {
   function goUp () {
     var yMin = this.radius + 10;
     this.y = this.y <= yMin ? yMin : this.y - this.speed;
-    console.log(this.y);
   }
 
   function goDown () {
-    console.log('go down')
     var yMax = config.canvasHeight - this.radius - 10;
     this.y = this.y >= yMax ? yMax : this.y + this.speed;
-    console.log(this.y);
   }
 
   function checkEvents () {
     if (pressedKeys.ArrowUp || pressedKeys.Up || pressedKeys[38]) {
-      console.log('up');
+
       goUp.apply(this);
     }
     if (pressedKeys.ArrowDown || pressedKeys.Down || pressedKeys[40]) {
-      console.log('down');
+
       goDown.apply(this);
     }
     if (pressedKeys[" "] || pressedKeys.Spacebar || pressedKeys[32]) {
-      console.log('spacebar');
+
       shotDate = config.launchAmmo(config.allAmmos.player, this.x, this.y, -1, shotDate, 500, 'player');
     }
   };
