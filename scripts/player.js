@@ -23,8 +23,7 @@ function Player (config) {
     '#6a5dbd',
     '#9350b6'
   ];
-  
-  var UNICORN_Y = [0, 160, 320, 480, 640, 800, 960, 1120];
+
   //  Défini la position initiale du joueur
   this.radius = 40;
   this.x = this.radius * 2.5;
@@ -63,7 +62,7 @@ function Player (config) {
       }
     }
     
-    if(renderDate - lastRenderDate > 50) {
+    if (renderDate - lastRenderDate > 50) {
       
       lastRenderDate = renderDate;
       if (index < yPosSprite.length - 1) {
@@ -85,7 +84,7 @@ function Player (config) {
       80, 
       this.x - 90, 
       this.y - 40, 
-      160, 
+      160,
       80)
 
     checkEvents.apply(this);

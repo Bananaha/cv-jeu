@@ -44,7 +44,6 @@ function Game () {
   // Affiche les vies du joueur
   function drawLives (source, size) {
     var playerLives =  3;
-    var livesLost = 3 
     
     for (var i = 0; i < playerLives; i++) {
       ctx.drawImage(gameImages.heartEmpty.src, 30 * i + 30, 30, size, size);
