@@ -1,5 +1,5 @@
 var game;
-
+var started = false;
 var pressedKeys = {};
 var partsUnlocked = [];
 var index = 0;
@@ -88,6 +88,8 @@ var experiencesPart = document.getElementById('rub-experiences');
 var likesPart = document.getElementById('rub-likes');
 var partIndex = document.getElementById('part-index');
 
+var skipInGame = document.getElementById('skip-in-game');
+
 var gameImages = {};
 var imagesCount = Object.keys(IMG).length;
 var loadedImagesCount = 0;
@@ -99,9 +101,8 @@ for (var key in IMG) {
   image.onload = onImageLoad(key, image);
 }
 
-function onImageLoad(key, image) {
-
-  return function() {
+function onImageLoad (key, image) {
+  return function () {
     loadedImagesCount++;
     var imageSize = getImageSize(image);
     gameImages[key] = {
@@ -112,9 +113,8 @@ function onImageLoad(key, image) {
     };
 
     if (loadedImagesCount === imagesCount) {
-
       var loader = document.getElementById('rainbow-container');
-      
+
       loader.style.display = 'none';
       loader.className = 'hide';
       openingModal.className = 'show';
@@ -122,14 +122,13 @@ function onImageLoad(key, image) {
       game = new Game();
       openingModal.style.width = game.getSize().canvasWidth + 'px';
       openingModal.style.height = game.getSize().canvasHeight + 'px';
-
     }
   }
 }
 
 // Event listeners sur les touches du clavier
 
-window.addEventListener("keydown", function (event) {
+window.addEventListener('keydown', function (event) {
 
   if (event.key !== undefined) {
 
@@ -137,46 +136,36 @@ window.addEventListener("keydown", function (event) {
       event.preventDefault();
     }
     pressedKeys[event.key] = true;
-  
   } else if (event.keyCode !== undefined) {
-
     if (event.keyCode === 38 || event.keyCode === 40 || event.keyCode === 32) { 
       event.preventDefault();
     }
     pressedKeys[event.keyCode] = true;
-
   }
 }, true);
 
-
-
 window.addEventListener('keyup', function (event) {
-  
   if (event.key !== undefined) {
-    
     if (event.key === 'ArrowUp' || event.key === 'ArrowDown' || event.key === ' ' || event.key === 'Up' || event.key === 'Down') { 
       event.preventDefault();
     }
     pressedKeys[event.key] = false;
-
   } else if (event.keyCode !== undefined) {
-    
+
     if (event.keyCode === '38' || event.keyCode === '40' || event.keyCode === '32') { 
       event.preventDefault();
     }
     pressedKeys[event.keyCode] = false;
-
   }
 }, true);
 
 // Bouton permettant de consulter les parties du cv
 seeUnlockedParts.addEventListener('click', function (event) {
-  
+
   event.preventDefault();
-  
   endingModalContainer.className = 'hide';
   endingModal.removeAttribute('style');
-  
+
   gallery.style.width = game.getSize().canvasWidth + 'px';
   gallery.style.height = game.getSize().canvasHeight + 'px';
   gallery.className = 'show';
@@ -192,101 +181,112 @@ seeUnlockedParts.addEventListener('click', function (event) {
   ].join('');
 
   if (partsUnlocked.length > 1) {
-
     changeClassName(rightArrow, 'show');
-
   } else {
-
     changeClassName(rightArrow, 'hide');
-
   }
 }, false);
-
 
 // Flèche de navigation de la galerie
 rightArrow.addEventListener('click', function () {
 
   partsUnlocked[index].className = 'hide';
-  
+
   if (index < partsUnlocked.length - 1) {
 
     index++;
   } else {
-
     index = 0;
   }
-  
+
   partsUnlocked[index].className = 'show';
-  
+
   if (index > 0) {
-
     changeClassName(leftArrow, 'show');
-
   } else {
-
-    changeClassName(leftArrow, 'hide');    
-
+    changeClassName(leftArrow, 'hide');
   }
-  
-  partIndex.innerHTML = index + 1 + " / " + partsUnlocked.length;
-  
+
+  partIndex.innerHTML = index + 1 + '/' + partsUnlocked.length;
 }, false);
 
-function changeClassName (element, addedClass) {
-  var stringToArray = element.className.split(' ');
-  stringToArray.splice(stringToArray.length - 1, 1, 'addedClass');
-  var arrayToString = stringToArray.join(' ');
-  element.className = arrayToString;
-}
-
 leftArrow.addEventListener('click', function () {
-  
+
   partsUnlocked[index].className = 'hide';
-  
+
   if (index >= 1) {
     index--;
   } else {
     index = partsUnlocked.length - 1;
   }
-  
+
   partsUnlocked[index].className = 'show';
-  
-  partIndex.innerHTML = index + 1 + " / " + partsUnlocked.length;
-  
+
+  partIndex.innerHTML = index + 1 + '/' + partsUnlocked.length;
+
 }, false);
 
 startGameButton.addEventListener('click', function () {
-  
-    openingModal.className = 'hide';
-    
-    startGameButton.removeAttribute('style');
-    skipGameButton.removeAttribute('style');
-    startGameButton.blur();
-    game.start();
+
+  openingModal.className = 'hide';
+
+  startGameButton.removeAttribute('style');
+  skipGameButton.removeAttribute('style');
+  startGameButton.blur();
+  game.start();
+  skipInGame.className = 'show';
+}, false);
+
+skipInGame.addEventListener('click', function (event) {
+
+  event.preventDefault();
+  skipInGame.className = 'hide';
+
+  gallery.style.width = game.getSize().canvasWidth + 'px';
+  gallery.style.height = game.getSize().canvasHeight + 'px';
+  gallery.className = 'show';
+
+  partsUnlocked.push(skillsPart, degreesPart, experiencesPart, likesPart);
+  partsUnlocked[index].className = 'show';
+  partIndex.innerHTML = [
+    '<span class="gallery-current-page">',
+    index + 1,
+    '</span>',
+    '<span class="gallery-pages-count">/',
+    partsUnlocked.length,
+    '</span>'
+  ].join('');
+
+  if (partsUnlocked.length > 1) {
+    changeClassName(rightArrow, 'show');
+  } else {
+    changeClassName(rightArrow, 'hide');
+  }
+  started = false;
 
 }, false);
 
 // Relance une partie
 // depuis la modal de fin de jeu
 restartInEnding.addEventListener('click', function (event) {
-  
+
   event.preventDefault();
-  
+
   endingModalContainer.className = 'hide';
   endingModal.removeAttribute('style');
-  
+
   game.start();
   
 }, false);
 
 // depuis l'écran des parties du cv remportées
 restartInGallery.addEventListener('click', function (event) {
-  
+
   event.preventDefault();
-  
+
   gallery.className = 'hide';
   gallery.removeAttribute('show');
-  
+  skipInGame.className = 'show';
   game.start();
 
 }, false);
@@ -305,13 +305,13 @@ function getImageSize (element) {
 
 // Affiche la modal de fin de partie
 function showEndModal (config) {
-  
+
   var scoreParagraph = document.getElementById('score');
   var messageParagraph = document.getElementById('message');
-  
+
   endingModalContainer.style.width = config.canvasWidth + 'px';
   endingModalContainer.style.height = config.canvasHeight + 'px';
-  
+
   scoreParagraph.innerHTML = [
     '<span class="score-label">Score:</span>',
     '<span class="score-value">',
@@ -329,6 +329,13 @@ function showEndModal (config) {
   }
 }
 
+function changeClassName (element, addedClass) {
+  var stringToArray = element.className.split(' ');
+  stringToArray.splice(stringToArray.length - 1, 1, addedClass);
+  var arrayToString = stringToArray.join(' ');
+  element.className = arrayToString;
+}
+
 function showNotification (message) {
   inGameMessage.className = 'show';
   inGameMessage.innerHTML = message;
@@ -338,7 +345,6 @@ function showNotification (message) {
   }, 3000);
 };
 
-
 // Browser detection scr : https://stackoverflow.com/questions/5916900/how-can-you-detect-the-version-of-a-browser
 function get_browser() {
   var ua = navigator.userAgent, tem, M = ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || []; 
@@ -347,10 +353,10 @@ function get_browser() {
     return {
       name:'IE',
       version: (tem[1] || '')
-      
+    
     };
   }
-  
+ 
   if (M[1] === 'Chrome') {
     tem = ua.match(/\bOPR|Edge\/(\d+)/)
     if (tem!=null) {

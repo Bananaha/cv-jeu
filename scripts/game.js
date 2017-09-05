@@ -1,7 +1,7 @@
 function Game () {
   var canvas = document.getElementById('canvas');
   canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight - 80;
+  canvas.height = window.innerHeight - 40;
   var ctx = canvas.getContext('2d');
   var fps = 40;
   var fpsInterval = 1000/fps;
@@ -16,8 +16,7 @@ function Game () {
   var gameStage;
   var createBoss;
   var newScore;
-  var started = false;
-  var ennemiesByStage = 20;
+  var ennemiesByStage = 10;
 
   var BOSS_MAXY = canvasWidth;
   var SPEED = 20;
@@ -43,8 +42,7 @@ function Game () {
   };
   // Affiche les vies du joueur
   function drawLives (source, size) {
-    var playerLives =  3;
-    
+    var playerLives = 3;
     for (var i = 0; i < playerLives; i++) {
       ctx.drawImage(gameImages.heartEmpty.src, 30 * i + 30, 30, size, size);
       if(player.life > i) {
@@ -225,7 +223,7 @@ function Game () {
         createBoss = true;
       }
     }
-    
+ 
     // Lorsque le joueur n'a plus de vie ou que le jeu est terminé, permettre l'accès au cv ou au redemarrage du jeu
     if (player.life <= 0 || (gameStage === 5 && bosses.length === 0)) {
       showEndModal({
@@ -238,7 +236,7 @@ function Game () {
       requestAnimation(draw);
       return;
     }
-    
+
     // dès que le palier est atteint, on arrête la production d'ennemis mais on continue le rendu des ennemis déjà générés.
     if (bosses.length === 0) {
       createEnnemies(lastDrawDate, gameStage);

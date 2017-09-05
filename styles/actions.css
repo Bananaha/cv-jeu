@@ -95,3 +95,10 @@ button:focus {
     margin-left: 28px;
     padding-left: 28px;
 }
+
+#skip-in-game {
+    position: absolute;
+    right: 12px;
+    top: 60px;
+    z-index: 1;
+}
