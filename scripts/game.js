@@ -234,6 +234,7 @@ function Game () {
       });
       started = false;
       requestAnimation(draw);
+      skipInGame.className = 'hide';
       return;
     }
 

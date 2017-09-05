@@ -317,10 +317,10 @@ function showEndModal (config) {
     config.newScore.score,
     '</span>'
   ].join('');
-  
+
   messageParagraph.innerHTML = config.text;
   endingModalContainer.className = 'flex';
-  
+
   if (partsUnlocked.length === 0) {
     seeUnlockedParts.className = 'hide';
   } else {
@@ -338,7 +338,7 @@ function changeClassName (element, addedClass) {
 function showNotification (message) {
   inGameMessage.className = 'show';
   inGameMessage.innerHTML = message;
-  
+
   setTimeout(function () {
     inGameMessage.className = 'hide';
   }, 3000);
