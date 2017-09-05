@@ -58,7 +58,6 @@ var IMG = {
   unicornSprite: './assets/unicorn-sprite.png'
 };
 
-
 // forcer le boolean / hasRequestAnimationFrame = true
 var hasRequestAnimationFrame = !!window.requestAnimationFrame;
 
@@ -121,7 +120,7 @@ function onImageLoad (key, image) {
 
       game = new Game();
       openingModal.style.width = game.getSize().canvasWidth + 'px';
-      openingModal.style.height = game.getSize().canvasHeight + 'px';
+      openingModal.style.height = game.getSize().canvasHeight - 40 + 'px';
     }
   }
 }
