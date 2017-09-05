@@ -1,10 +1,3 @@
 # cv-jeu
 
-TODO LIST
-- gérer la collision ammo/boss
-- gérer le resize(pause)
-- mobile
-- angular
-- favicon
-- rajouter les coeurs vides en cas de perte de vie du player
-
+Premier projet d'étude : présentation du cv sous forme de jeu en javascript/html5/css
